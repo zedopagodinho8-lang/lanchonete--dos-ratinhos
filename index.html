@@ -1,0 +1,524 @@
+Perfeito! Vou criar uma loja online completa para a **"Logo dos Ratinhos"** — uma padaria/cafeteria fofa com mascotes ratinhos apresentando os produtos, carrinho de compras funcional, categorias, e um visual bem caprichado (tema aconchegante de padaria) 🐭🥐
+
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo dos Ratinhos | Padaria & Cafeteria</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+        background: #fff8f0;
+        color: #4e342e;
+    }
+
+    /* HEADER */
+    header {
+        background: linear-gradient(135deg, #6f4e37, #a1887f);
+        padding: 15px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #fff8f0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    nav {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        color: #fff8f0;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: #ffd54f;
+    }
+
+    .search-box {
+        display: flex;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .search-box input {
+        border: none;
+        padding: 8px 15px;
+        outline: none;
+        font-size: 0.9em;
+        width: 160px;
+    }
+
+    .search-box button {
+        border: none;
+        background: #ffd54f;
+        padding: 8px 15px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .cart-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.6em;
+        color: #fff8f0;
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: #ff1744;
+        color: #fff;
+        font-size: 0.6em;
+        padding: 3px 7px;
+        border-radius: 50%;
+        font-weight: bold;
+    }
+
+    /* BANNER */
+    .banner {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="2" fill="%23ffe0b2"/></svg>');
+        background-color: #ffe0b2;
+        text-align: center;
+        padding: 70px 20px 50px;
+    }
+
+    .banner h1 {
+        font-size: 2.6em;
+        color: #6f4e37;
+    }
+
+    .banner p {
+        margin-top: 12px;
+        font-size: 1.2em;
+        color: #795548;
+    }
+
+    .horario {
+        margin-top: 20px;
+        display: inline-block;
+        background: #6f4e37;
+        color: #fff8f0;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: bold;
+    }
+
+    /* MASCOTES */
+    .mascotes {
+        padding: 50px 20px;
+        background: #fff3e0;
+        text-align: center;
+    }
+
+    .mascotes h2 {
+        font-size: 2em;
+        color: #6f4e37;
+        margin-bottom: 40px;
+    }
+
+    .mascote-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .mascote-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 25px 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        position: relative;
+        transition: transform 0.3s;
+    }
+
+    .mascote-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .mascote-avatar {
+        font-size: 4em;
+        margin-bottom: 10px;
+    }
+
+    .mascote-nome {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: #6f4e37;
+        margin-bottom: 5px;
+    }
+
+    .mascote-cargo {
+        font-size: 0.85em;
+        color: #a1887f;
+        margin-bottom: 15px;
+        font-style: italic;
+    }
+
+    .balao {
+        background: #fff8f0;
+        border: 2px dashed #d7ccc8;
+        border-radius: 15px;
+        padding: 15px;
+        font-size: 0.9em;
+        text-align: left;
+        line-height: 1.5;
+    }
+
+    .balao strong {
+        color: #6f4e37;
+    }
+
+    /* CATEGORIAS */
+    .categorias {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 30px 20px;
+        background: #fff8f0;
+    }
+
+    .categoria-btn {
+        background: #fff;
+        border: 2px solid #a1887f;
+        color: #6f4e37;
+        padding: 10px 18px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+        font-size: 0.9em;
+    }
+
+    .categoria-btn:hover, .categoria-btn.active {
+        background: #6f4e37;
+        color: #fff8f0;
+        border-color: #6f4e37;
+    }
+
+    /* PRODUTOS */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h2.section-title {
+        text-align: center;
+        font-size: 2em;
+        margin: 30px 0;
+        color: #6f4e37;
+    }
+
+    .produtos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 22px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid #f0e4d7;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .card .icon {
+        font-size: 2.8em;
+        margin-bottom: 10px;
+    }
+
+    .card h3 {
+        font-size: 1.05em;
+        margin-bottom: 8px;
+        color: #4e342e;
+    }
+
+    .card .mini-desc {
+        font-size: 0.78em;
+        color: #8d6e63;
+        margin-bottom: 10px;
+        min-height: 32px;
+    }
+
+    .card .preco {
+        font-size: 1.25em;
+        font-weight: bold;
+        color: #6f4e37;
+    }
+
+    .btn-add {
+        margin-top: 12px;
+        display: inline-block;
+        padding: 9px 18px;
+        background: #ffd54f;
+        color: #4e342e;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-add:hover {
+        background: #ffca28;
+    }
+
+    /* CARRINHO */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 150;
+    }
+
+    .overlay.active { display: block; }
+
+    .cart-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 360px;
+        max-width: 90%;
+        height: 100%;
+        background: #fff8f0;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+        z-index: 200;
+        flex-direction: column;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .cart-modal.active { display: flex; }
+
+    .cart-modal h2 {
+        color: #6f4e37;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .close-cart {
+        cursor: pointer;
+        font-size: 1.3em;
+        color: #ff1744;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+        border: 1px solid #f0e4d7;
+    }
+
+    .remove-item {
+        color: #ff1744;
+        cursor: pointer;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .cart-total {
+        margin-top: 15px;
+        border-top: 1px solid #d7ccc8;
+        padding-top: 15px;
+        font-size: 1em;
+    }
+
+    .cart-total div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .btn-checkout {
+        margin-top: 15px;
+        width: 100%;
+        padding: 12px;
+        background: #6f4e37;
+        color: #fff8f0;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1em;
+    }
+
+    .btn-checkout:hover { background: #5d4037; }
+
+    /* FOOTER */
+    footer {
+        background: #6f4e37;
+        color: #fff8f0;
+        padding: 40px 20px 20px;
+        margin-top: 50px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 30px;
+    }
+
+    .footer-content h4 {
+        color: #ffd54f;
+        margin-bottom: 12px;
+    }
+
+    .footer-content p, .footer-content a {
+        color: #efebe9;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.9em;
+    }
+
+    .footer-content a:hover { color: #ffd54f; }
+
+    .copyright {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        font-size: 0.85em;
+        color: #d7ccc8;
+    }
+
+    .copyright span { color: #ffd54f; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🐭 Logo dos Ratinhos</div>
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#mascotes">Nossos Ratinhos</a>
+        <a href="#produtos">Cardápio</a>
+        <a href="#contato">Contato</a>
+    </nav>
+    <div class="search-box">
+        <input type="text" id="busca" placeholder="Buscar item...">
+        <button onclick="buscarProduto()">🔍</button>
+    </div>
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+</header>
+
+<section class="banner" id="inicio">
+    <h1>🐭 Bem-vindo à Logo dos Ratinhos! 🥐</h1>
+    <p>Padaria e cafeteria feita com muito carinho pelos nossos ratinhos padeiros!</p>
+    <div class="horario">⏰ Funcionamento: 05:00 às 12:00 e 14:00 às 18:00</div>
+</section>
+
+<!-- MASCOTES -->
+<section class="mascotes" id="mascotes">
+    <h2>🐾 Conheça Nossos Ratinhos 🐾</h2>
+    <div class="mascote-grid">
+
+        <div class="mascote-card">
+            <div class="mascote-avatar">🐭👨‍🍳</div>
+            <div class="mascote-nome">Toto, o Padeiro</div>
+            <div class="mascote-cargo">Especialista em Pães</div>
+            <div class="balao">
+                Oi! Eu sou o <strong>Toto</strong> 🐭 e cuido de todos os pães fresquinhos daqui!
+                Faço <strong>Pão Francês</strong> crocante por fora, <strong>Croissants</strong> amanteigados,
+                <strong>Pão de Queijo</strong> quentinho, <strong>Torradas</strong> douradas,
+                <strong>Pão na Chapa</strong> derretendo manteiga, <strong>Tapioca</strong> recheada
+                e <strong>Pão de Batata</strong> macio! Vem provar! 🥖
+            </div>
+        </div>
+
+        <div class="mascote-card">
+            <div class="mascote-avatar">🐁🍰</div>
+            <div class="mascote-nome">Doce Mel</div>
+            <div class="mascote-cargo">Confeiteira Oficial</div>
+            <div class="balao">
+                Oiii, eu sou a <strong>Doce Mel</strong> 🐁💕! Adoro fazer o <strong>Bolo</strong> fofinho,
+                <strong>Biscoitos</strong> crocantes, <strong>Brigadeiro</strong> derretendo na boca,
+                <strong>Muffins</strong> fofinhos, <strong>Brownie</strong> com chocolate quente por dentro,
+                <strong>Pudim</strong> cremoso e o famoso <strong>Cheesecake</strong>! Uma delícia pra cada humor! 🍫
+            </div>
+        </div>
+
+        <div class="mascote-card">
+            <div class="mascote-avatar">🐹🥗</div>
+            <div class="mascote-nome">Kiwi Fit</div>
+            <div class="mascote-cargo">Ratinho Saudável</div>
+            <div class="balao">
+                E aí! Sou o <strong>Kiwi</strong> 🐹, o rato mais saudável da padaria! Trago
+                <strong>Frutas</strong> fresquinhas, <strong>Geleia</strong> caseira, <strong>Mel</strong> puro,
+                <strong>Cereal</strong> crocante, <strong>Sanduíche Natural</strong> leve e a
+                <strong>Salada de Frutas</strong> colorida! Comer bem também pode ser gostoso! 🍓
+            </div>
+        </div>
+
+        <div class="mascote-card">
+            <div class="mascote-avatar">🐭☕</div>
+            <div class="mascote-nome">Baristo Café</div>
+            <div class="mascote-cargo">Mestre dos Cafés</div>
+            <div class="balao">
+                Olá, eu sou o <strong>Baristo</strong> 🐭☕! Preparo o <strong>Café</strong> fresquinho,
+                <strong>Café com Leite</strong> cremoso, <strong>Cappuccino</strong> com espuminha,
+                <strong>Mocha</strong> com chocolate e o <strong>Chocolate Quente</strong> perfeito
+                pros dias frios! Bora tomar um cafezinho? ☕
+            </div>
+        </div>
+
+        <div class="mascote-card">
+            <div class="mascote-avatar">🐁🧃</div>
+            <div class="mascote-nome">Suquinho Fresh</div>
+            <div class="mascote-cargo">Rato das Bebidas Geladas</div>
+            <div class="balao">
+                Oi oi! Eu sou o <strong>Suquinho</strong> 🐁🧃! Trago o <strong>Refrigerante</strong> geladinho,
+                <strong>Suco de Laranja</strong> e <strong>Suco de Uva</strong> naturais, <strong>Milk-shake</strong>
