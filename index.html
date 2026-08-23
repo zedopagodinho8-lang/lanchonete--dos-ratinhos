@@ -1,133 +1,898 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logo dos Ratinhos | Padaria & Cafeteria (Projeto Escolar)</title>
+<title>Lanchonete dos Ratinhos 🐭🧀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Arial, sans-serif; }
-    body { background:#fff8f0; color:#4e342e; }
+  :root{
+    --laranja: #E8722A;
+    --laranja-escuro: #C4581A;
+    --laranja-claro: #FFB672;
+    --creme: #FFF6E9;
+    --marrom: #5A3A22;
+    --queijo: #FFD166;
+    --rosa-nariz: #F27A9E;
+    --verde-ok: #4C9A5A;
+    --sombra: 0 8px 20px rgba(90,58,34,0.15);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:var(--creme);
+    color:var(--marrom);
+    background-image:
+      radial-gradient(circle at 95% 8%, rgba(232,114,42,0.08) 0, transparent 40%),
+      radial-gradient(circle at 5% 60%, rgba(255,209,102,0.15) 0, transparent 35%);
+  }
+  h1,h2,h3, .titulo-fonte{ font-family:'Baloo 2', sans-serif; }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:'Nunito', sans-serif; cursor:pointer; border:none; }
 
-    /* AVISO */
-    .aviso {
-        background:#ff1744; color:#fff; text-align:center; padding:10px;
-        font-weight:bold; font-size:0.9em; letter-spacing:0.5px;
-    }
+  /* ---------- HEADER ---------- */
+  header{
+    background: linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+    color:#fff;
+    padding:14px 18px;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow: var(--sombra);
+  }
+  .header-linha{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Baloo 2', sans-serif;
+    font-size:1.4rem;
+    font-weight:800;
+  }
+  .logo .queijo-icone{
+    background:var(--queijo);
+    color:var(--marrom);
+    width:42px;height:42px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+    border:3px solid #fff;
+    flex-shrink:0;
+  }
+  .logo small{
+    display:block;
+    font-family:'Nunito',sans-serif;
+    font-weight:600;
+    font-size:0.65rem;
+    opacity:0.9;
+    letter-spacing:0.5px;
+  }
+  nav.acoes{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .btn-nav{
+    background:rgba(255,255,255,0.18);
+    color:#fff;
+    padding:9px 14px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:0.85rem;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:0.2s;
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .btn-nav:hover{ background:rgba(255,255,255,0.32); transform:translateY(-1px); }
+  .btn-carrinho{
+    background:var(--queijo);
+    color:var(--marrom);
+    border:none;
+    position:relative;
+  }
+  .btn-carrinho:hover{ background:#ffcb4d; }
+  .contador-carrinho{
+    position:absolute;
+    top:-6px; right:-6px;
+    background:var(--rosa-nariz);
+    color:#fff;
+    font-size:0.7rem;
+    font-weight:800;
+    width:20px;height:20px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid #fff;
+  }
+  .barra-busca{
+    max-width:1100px;
+    margin:10px auto 0;
+    display:flex;
+    align-items:center;
+    background:#fff;
+    border-radius:999px;
+    padding:8px 16px;
+    gap:8px;
+    box-shadow:inset 0 0 0 2px rgba(232,114,42,0.15);
+  }
+  .barra-busca input{
+    border:none;
+    outline:none;
+    flex:1;
+    font-size:0.95rem;
+    font-family:'Nunito',sans-serif;
+    color:var(--marrom);
+    background:transparent;
+  }
+  .barra-busca span{ color:var(--laranja); font-size:1.1rem; }
 
-    /* HEADER */
-    header {
-        background:linear-gradient(135deg,#6f4e37,#a1887f);
-        padding:15px 30px; display:flex; align-items:center; justify-content:space-between;
-        flex-wrap:wrap; position:sticky; top:0; z-index:100; box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    }
-    .logo { font-size:1.8em; font-weight:bold; color:#fff8f0; display:flex; align-items:center; gap:10px; }
-    nav { display:flex; gap:20px; flex-wrap:wrap; }
-    nav a { color:#fff8f0; text-decoration:none; font-weight:500; transition:0.3s; }
-    nav a:hover { color:#ffd54f; }
-    .search-box { display:flex; border-radius:20px; overflow:hidden; }
-    .search-box input { border:none; padding:8px 15px; outline:none; font-size:0.9em; width:150px; }
-    .search-box button { border:none; background:#ffd54f; padding:8px 15px; cursor:pointer; font-weight:bold; }
-    .cart-icon { position:relative; cursor:pointer; font-size:1.6em; color:#fff8f0; }
-    .cart-count {
-        position:absolute; top:-8px; right:-10px; background:#ff1744; color:#fff;
-        font-size:0.6em; padding:3px 7px; border-radius:50%; font-weight:bold;
-    }
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:38px 20px 18px;
+    display:flex;
+    align-items:center;
+    gap:26px;
+    flex-wrap:wrap;
+  }
+  .hero-texto{ flex:1 1 320px; }
+  .hero-texto .aviso-escolar{
+    display:inline-block;
+    background:#FFEFD9;
+    color:var(--laranja-escuro);
+    font-weight:800;
+    font-size:0.72rem;
+    padding:5px 12px;
+    border-radius:999px;
+    margin-bottom:12px;
+    letter-spacing:0.3px;
+    border:1px dashed var(--laranja);
+  }
+  .hero-texto h1{
+    font-size:2.3rem;
+    line-height:1.1;
+    margin:0 0 12px;
+    color:var(--laranja-escuro);
+  }
+  .hero-texto p{ font-size:1.02rem; line-height:1.5; max-width:480px; }
+  .hero-botoes{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+  .btn-principal{
+    background:var(--laranja);
+    color:#fff;
+    padding:13px 22px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:0.95rem;
+    box-shadow:var(--sombra);
+    transition:0.2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-principal:hover{ background:var(--laranja-escuro); transform:translateY(-2px); }
+  .btn-secundario{
+    background:#fff;
+    color:var(--laranja-escuro);
+    padding:13px 22px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:0.95rem;
+    border:2px solid var(--laranja-claro);
+    transition:0.2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-secundario:hover{ background:#FFF1E0; transform:translateY(-2px); }
 
-    /* BANNER */
-    .banner { background:#ffe0b2; text-align:center; padding:60px 20px 40px; }
-    .banner h1 { font-size:2.5em; color:#6f4e37; }
-    .banner p { margin-top:10px; font-size:1.1em; color:#795548; }
-    .horario, .endereco-loja {
-        margin-top:15px; display:inline-block; background:#6f4e37; color:#fff8f0;
-        padding:10px 22px; border-radius:30px; font-weight:bold; font-size:0.9em; margin-right:10px;
-    }
+  .hero-mascote{
+    flex:1 1 260px;
+    display:flex;
+    justify-content:center;
+  }
+  .balao-mascote{
+    background:#fff;
+    border-radius:26px;
+    padding:26px 22px;
+    text-align:center;
+    box-shadow:var(--sombra);
+    border:3px solid var(--queijo);
+    max-width:300px;
+    position:relative;
+  }
+  .balao-mascote .rato-grande{ font-size:4.2rem; display:block; margin-bottom:6px; }
+  .balao-mascote p{
+    font-size:0.9rem;
+    font-style:italic;
+    margin:6px 0 0;
+    color:var(--marrom);
+  }
+  .buracos-decor{
+    position:absolute;
+    bottom:-14px; left:20px;
+    display:flex;
+    gap:8px;
+  }
+  .buracos-decor span{
+    width:22px;height:14px;
+    background:var(--marrom);
+    border-radius:50%;
+    display:block;
+    opacity:0.15;
+  }
 
-    /* MASCOTES */
-    .mascotes { padding:50px 20px; background:#fff3e0; text-align:center; }
-    .mascotes h2 { font-size:2em; color:#6f4e37; margin-bottom:35px; }
-    .mascote-grid {
-        display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-        gap:25px; max-width:1200px; margin:0 auto;
-    }
-    .mascote-card {
-        background:#fff; border-radius:20px; padding:22px 18px;
-        box-shadow:0 8px 20px rgba(0,0,0,0.1); transition:0.3s;
-    }
-    .mascote-card:hover { transform:translateY(-6px); }
-    .mascote-avatar { font-size:3.5em; margin-bottom:8px; }
-    .mascote-nome { font-size:1.2em; font-weight:bold; color:#6f4e37; }
-    .mascote-cargo { font-size:0.8em; color:#a1887f; margin-bottom:12px; font-style:italic; }
-    .balao {
-        background:#fff8f0; border:2px dashed #d7ccc8; border-radius:15px;
-        padding:14px; font-size:0.85em; text-align:left; line-height:1.5;
-    }
-    .balao strong { color:#6f4e37; }
+  /* ---------- SECOES GERAIS ---------- */
+  section{ max-width:1100px; margin:0 auto; padding:26px 20px; }
+  .titulo-secao{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .titulo-secao h2{ font-size:1.6rem; color:var(--laranja-escuro); margin:0; }
+  .subtitulo-secao{ color:#8a6a4f; font-size:0.92rem; margin:0 0 20px; }
 
-    /* CATEGORIAS */
-    .categorias {
-        display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
-        padding:30px 20px; background:#fff8f0;
-    }
-    .categoria-btn {
-        background:#fff; border:2px solid #a1887f; color:#6f4e37; padding:9px 16px;
-        border-radius:25px; cursor:pointer; font-weight:bold; transition:0.3s; font-size:0.85em;
-    }
-    .categoria-btn:hover, .categoria-btn.active { background:#6f4e37; color:#fff8f0; border-color:#6f4e37; }
+  /* ---------- GRID CARDAPIO ---------- */
+  #cardapio-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .card-produto{
+    background:#fff;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:var(--sombra);
+    border:2px solid #FFE6C7;
+    display:flex;
+    flex-direction:column;
+    transition:0.2s;
+  }
+  .card-produto:hover{ transform:translateY(-3px); border-color:var(--laranja-claro); }
+  .card-topo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .emoji-produto{
+    font-size:2.1rem;
+    background:var(--creme);
+    border-radius:14px;
+    width:52px;height:52px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    border:2px solid var(--queijo);
+  }
+  .nome-produto{ font-weight:800; font-size:1rem; line-height:1.15; }
+  .opiniao-rato{
+    background:#FFF3E0;
+    border-radius:12px;
+    padding:9px 11px;
+    font-size:0.78rem;
+    color:#7a5636;
+    display:flex;
+    gap:7px;
+    align-items:flex-start;
+    margin-bottom:10px;
+    flex:1;
+  }
+  .opiniao-rato .rato-icone{ font-size:1rem; flex-shrink:0; }
+  .opiniao-rato .autor-rato{ font-weight:800; color:var(--laranja-escuro); display:block; margin-bottom:2px; }
+  .precos-produto{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px dashed #F0D2AE;
+    padding-top:8px;
+    margin-bottom:10px;
+    font-size:0.72rem;
+    color:#a0805f;
+  }
+  .precos-produto .preco-final{
+    font-size:1.15rem;
+    font-weight:800;
+    color:var(--laranja-escuro);
+    display:block;
+  }
+  .precos-produto .col-custo{ text-align:right; line-height:1.4; }
+  .precos-produto .col-custo b{ color:var(--verde-ok); }
+  .btn-add-carrinho{
+    background:var(--laranja);
+    color:#fff;
+    padding:9px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:0.82rem;
+    text-align:center;
+    transition:0.2s;
+  }
+  .btn-add-carrinho:hover{ background:var(--laranja-escuro); }
+  .btn-add-carrinho.adicionado{ background:var(--verde-ok); }
 
-    /* PRODUTOS */
-    .container { max-width:1200px; margin:0 auto; padding:20px; }
-    h2.section-title { text-align:center; font-size:2em; margin:20px 0 30px; color:#6f4e37; }
-    .produtos { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
-    .card {
-        background:#fff; border-radius:18px; padding:18px; text-align:center;
-        box-shadow:0 6px 15px rgba(0,0,0,0.08); transition:0.3s; border:1px solid #f0e4d7; position:relative;
-    }
-    .card:hover { transform:translateY(-6px); box-shadow:0 12px 25px rgba(0,0,0,0.15); }
-    .card .icon { font-size:2.6em; margin-bottom:8px; }
-    .card h3 { font-size:1em; margin-bottom:8px; color:#4e342e; }
-    .card .preco { font-size:1.2em; font-weight:bold; color:#6f4e37; }
-    .selo {
-        position:absolute; top:8px; right:8px; background:#ff1744; color:#fff;
-        font-size:0.6em; padding:3px 7px; border-radius:10px; font-weight:bold;
-    }
-    .btn-add {
-        margin-top:12px; padding:8px 16px; background:#ffd54f; color:#4e342e; border:none;
-        border-radius:30px; font-weight:bold; cursor:pointer; transition:0.3s; font-size:0.85em;
-    }
-    .btn-add:hover { background:#ffca28; }
+  #sem-resultado{
+    display:none;
+    text-align:center;
+    padding:30px;
+    color:#a0805f;
+    font-weight:700;
+  }
 
-    /* CARRINHO */
-    .overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:150; }
-    .overlay.active { display:block; }
-    .cart-modal {
-        display:none; position:fixed; top:0; right:0; width:380px; max-width:92%; height:100%;
-        background:#fff8f0; box-shadow:-5px 0 20px rgba(0,0,0,0.3); z-index:200;
-        flex-direction:column; padding:20px; overflow-y:auto;
-    }
-    .cart-modal.active { display:flex; }
-    .cart-modal h2 { color:#6f4e37; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; }
-    .close-cart { cursor:pointer; font-size:1.3em; color:#ff1744; }
-    .cart-item {
-        display:flex; justify-content:space-between; align-items:center; background:#fff;
-        padding:9px; border-radius:10px; margin-bottom:8px; font-size:0.85em; border:1px solid #f0e4d7;
-    }
-    .remove-item { color:#ff1744; cursor:pointer; font-weight:bold; margin-left:10px; }
+  /* ---------- FRETE ---------- */
+  #frete{
+    background:linear-gradient(135deg, #FFF1DD, #FFE3C2);
+    border-radius:24px;
+    margin:26px 20px;
+    max-width:1060px;
+  }
+  .frete-caixa{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:var(--sombra);
+  }
+  .frete-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .campo-frete{ display:flex; flex-direction:column; gap:5px; }
+  .campo-frete.full{ grid-column:1 / -1; }
+  .campo-frete label{ font-size:0.78rem; font-weight:800; color:var(--laranja-escuro); }
+  .campo-frete input{
+    padding:10px 12px;
+    border-radius:10px;
+    border:2px solid #FFDDB0;
+    font-size:0.9rem;
+    font-family:'Nunito',sans-serif;
+    outline:none;
+  }
+  .campo-frete input:focus{ border-color:var(--laranja); }
+  #btn-calcular-frete{
+    margin-top:14px;
+    width:100%;
+  }
+  #resultado-frete{
+    margin-top:16px;
+    background:#F3FBEF;
+    border:2px solid #CBEAC0;
+    border-radius:14px;
+    padding:14px 16px;
+    display:none;
+  }
+  #resultado-frete.erro{ background:#FDEAEA; border-color:#F4BFBF; }
+  #resultado-frete .linha-frete{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.88rem;
+    padding:3px 0;
+  }
+  #resultado-frete .linha-frete.total{ font-weight:800; font-size:1rem; border-top:1px dashed #b9d9ae; margin-top:6px; padding-top:8px; }
+  .origem-loja{ font-size:0.75rem; color:#8a6a4f; margin-top:10px; display:flex; gap:6px; align-items:center; }
 
-    .endereco-form {
-        background:#fff; border:1px solid #f0e4d7; border-radius:12px; padding:15px; margin-top:15px;
-    }
-    .endereco-form h3 { color:#6f4e37; font-size:1em; margin-bottom:10px; }
-    .endereco-form label { font-size:0.8em; color:#795548; display:block; margin-top:8px; margin-bottom:3px; }
-    .endereco-form input, .endereco-form select {
-        width:100%; padding:8px; border-radius:8px; border:1px solid #d7ccc8; font-size:0.85em; outline:none;
-    }
-    .btn-frete {
-        margin-top:12px; width:100%; padding:10px; background:#a1887f; color:#fff; border:none;
-        border-radius:20px; font-weight:bold; cursor:pointer; font-size:0.9em;
-    }
-    .btn-frete:hover { background:#8d6e63; }
+  /* ---------- CARRINHO (modal) ---------- */
+  .overlay{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(90,58,34,0.45);
+    z-index:100;
+    align-items:flex-start;
+    justify-content:flex-end;
+  }
+  .overlay.aberto{ display:flex; }
+  .painel-carrinho{
+    background:var(--creme);
+    width:100%;
+    max-width:400px;
+    height:100%;
+    padding:20px;
+    overflow-y:auto;
+    box-shadow:-10px 0 24px rgba(0,0,0,0.2);
+    animation:entrar 0.25s ease;
+  }
+  @keyframes entrar{ from{ transform:translateX(30px); opacity:0;} to{ transform:translateX(0); opacity:1;} }
+  .painel-topo{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .painel-topo h2{ margin:0; color:var(--laranja-escuro); font-size:1.3rem; }
+  .fechar-painel{ background:#fff; border-radius:50%; width:34px;height:34px; font-size:1.1rem; font-weight:800; color:var(--laranja-escuro); box-shadow:var(--sombra); }
+  #itens-carrinho{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .item-carrinho{
+    background:#fff;
+    border-radius:12px;
+    padding:10px 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 3px 8px rgba(90,58,34,0.08);
+  }
+  .item-carrinho .emoji-produto{ width:38px;height:38px; font-size:1.4rem; }
+  .item-info{ flex:1; }
+  .item-info .nome{ font-weight:800; font-size:0.85rem; }
+  .item-info .preco-unit{ font-size:0.72rem; color:#a0805f; }
+  .qtd-controle{ display:flex; align-items:center; gap:6px; }
+  .qtd-controle button{
+    width:24px;height:24px;
+    background:var(--laranja-claro);
+    color:#fff;
+    border-radius:50%;
+    font-weight:800;
+  }
+  .qtd-controle span{ font-weight:800; min-width:16px; text-align:center; }
+  #carrinho-vazio{ text-align:center; padding:30px 10px; color:#a0805f; }
+  #carrinho-vazio .emoji-vazio{ font-size:2.5rem; display:block; margin-bottom:8px; }
+  .resumo-carrinho{
+    background:#fff;
+    border-radius:14px;
+    padding:14px;
+    font-size:0.88rem;
+  }
+  .resumo-carrinho .linha{ display:flex; justify-content:space-between; padding:4px 0; }
+  .resumo-carrinho .linha.total{ font-weight:800; font-size:1.05rem; border-top:1px dashed #F0D2AE; margin-top:6px; padding-top:8px; color:var(--laranja-escuro); }
+  #btn-finalizar{
+    width:100%;
+    margin-top:14px;
+    background:var(--marrom);
+    color:#fff;
+    padding:13px;
+    border-radius:12px;
+    font-weight:800;
+  }
+  .nota-demo{
+    font-size:0.72rem;
+    color:#a0805f;
+    text-align:center;
+    margin-top:8px;
+    line-height:1.4;
+  }
 
-    .cart-total { margin-top:15px; border-top:1px solid #d7ccc8; padding-top:12px; font-size:0.95em; }
-    .cart-total div { display:flex; justify-content:space-between; margin-bottom:6px; }
-    .btn-checkout {
-        margin-top:15px; width:100%; padding:12px; background:#6f4e37; color:#fff8f0; border:none;
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--marrom);
+    color:#f3e3d1;
+    text-align:center;
+    padding:26px 16px 30px;
+    margin-top:30px;
+    font-size:0.8rem;
+    line-height:1.6;
+  }
+  footer .rodape-titulo{ font-family:'Baloo 2',sans-serif; font-size:1.1rem; margin-bottom:6px; color:var(--queijo); }
+  footer .selo-escolar{
+    display:inline-block;
+    margin-top:10px;
+    background:rgba(255,255,255,0.08);
+    border:1px dashed rgba(255,255,255,0.3);
+    padding:8px 14px;
+    border-radius:10px;
+  }
+
+  /* ---------- RESPONSIVO ---------- */
+  @media (min-width:640px){
+    #cardapio-grid{ grid-template-columns:1fr 1fr; gap:20px; }
+  }
+  @media (max-width:420px){
+    .hero-texto h1{ font-size:1.8rem; }
+    .card-produto{ padding:12px; }
+    .emoji-produto{ width:44px;height:44px; font-size:1.7rem; }
+    .nome-produto{ font-size:0.88rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-linha">
+    <div class="logo">
+      <span class="queijo-icone">🐭</span>
+      <div>
+        Lanchonete dos Ratinhos
+        <small>PADARIA &amp; CAFÉ • ARAGUAÍNA-TO</small>
+      </div>
+    </div>
+    <nav class="acoes">
+      <a href="#cardapio" class="btn-nav">📖 Cardápio</a>
+      <a href="#frete" class="btn-nav">📍 Calcular Frete</a>
+      <button class="btn-nav btn-carrinho" id="btn-abrir-carrinho">
+        🧺 Carrinho
+        <span class="contador-carrinho" id="contador-carrinho">0</span>
+      </button>
+    </nav>
+  </div>
+  <div class="barra-busca">
+    <span>🔍</span>
+    <input type="text" id="campo-busca" placeholder="Buscar comidinha... ex: croissant, café, pudim">
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-texto">
+    <span class="aviso-escolar">🎓 Projeto escolar — loja fictícia de demonstração</span>
+    <h1>Pão quentinho, queijo derretendo e ratinhos experts em cada mordida 🧀</h1>
+    <p>Bem-vindo(a) à padaria mais fofa da cidade! Cada produto tem a opinião sincera de um ratinho provador de plantão. Escolha, adicione ao carrinho e calcule o frete até a sua casa.</p>
+    <div class="hero-botoes">
+      <a href="#cardapio" class="btn-principal">📖 Ver Cardápio</a>
+      <a href="#frete" class="btn-secundario">📍 Calcular meu Frete</a>
+    </div>
+  </div>
+  <div class="hero-mascote">
+    <div class="balao-mascote">
+      <span class="rato-grande">🐁🧀</span>
+      <strong>Bigodinho, o rato-chef</strong>
+      <p>"Cheirinho de pão fresco é a coisa mais gostosa da toca inteira!"</p>
+      <div class="buracos-decor"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="cardapio">
+  <div class="titulo-secao"><h2>📖 Nosso Cardápio</h2></div>
+  <p class="subtitulo-secao">Preços de padaria de verdade, com nossa margem de lucro exibida abaixo de cada item (fins didáticos).</p>
+  <div id="cardapio-grid"></div>
+  <p id="sem-resultado">🐭 Nenhum produto encontrado... nem o faro apurado do ratinho achou isso no cardápio!</p>
+</section>
+
+<section id="frete">
+  <div class="frete-caixa">
+    <div class="titulo-secao"><h2>📍 Calcular Frete</h2></div>
+    <p class="subtitulo-secao">Preencha seu endereço. Calculamos automaticamente a distância a partir da nossa loja, no Centro de Araguaína-TO.</p>
+    <div class="frete-grid">
+      <div class="campo-frete full">
+        <label for="input-rua">Rua / Avenida</label>
+        <input type="text" id="input-rua" placeholder="Ex: Avenida Filadélfia">
+      </div>
+      <div class="campo-frete">
+        <label for="input-quadra">Quadra</label>
+        <input type="text" id="input-quadra" placeholder="Ex: Quadra 15">
+      </div>
+      <div class="campo-frete">
+        <label for="input-numero">Número da casa</label>
+        <input type="text" id="input-numero" placeholder="Ex: 245">
+      </div>
+      <div class="campo-frete">
+        <label for="input-complemento">Complemento</label>
+        <input type="text" id="input-complemento" placeholder="Ex: Casa dos fundos (opcional)">
+      </div>
+      <div class="campo-frete">
+        <label for="input-bairro">Bairro</label>
+        <input type="text" id="input-bairro" placeholder="Ex: Setor Aeroporto">
+      </div>
+    </div>
+    <button class="btn-principal" id="btn-calcular-frete">🚚 Calcular valor do frete</button>
+    <div id="resultado-frete"></div>
+    <div class="origem-loja">🏠 Loja de origem: Centro de Araguaína-TO (ponto de referência fixo para o cálculo)</div>
+  </div>
+</section>
+
+<div class="overlay" id="overlay-carrinho">
+  <div class="painel-carrinho">
+    <div class="painel-topo">
+      <h2>🧺 Seu Carrinho</h2>
+      <button class="fechar-painel" id="btn-fechar-carrinho">✕</button>
+    </div>
+    <div id="itens-carrinho"></div>
+    <div id="carrinho-vazio">
+      <span class="emoji-vazio">🐭🍞</span>
+      Seu carrinho está vazio.<br>Que tal escolher algo gostoso no cardápio?
+    </div>
+    <div class="resumo-carrinho" id="resumo-carrinho" style="display:none;">
+      <div class="linha"><span>Subtotal</span><span id="resumo-subtotal">R$ 0,00</span></div>
+      <div class="linha"><span>Frete</span><span id="resumo-frete">calcule na seção de frete</span></div>
+      <div class="linha total"><span>Total</span><span id="resumo-total">R$ 0,00</span></div>
+      <button id="btn-finalizar">Finalizar pedido</button>
+      <p class="nota-demo">⚠️ Este site é um projeto escolar de demonstração. Nenhuma compra real é processada.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="rodape-titulo">🐭 Lanchonete dos Ratinhos 🧀</div>
+  Centro de Araguaína-TO • Aberto de segunda a sábado, das 6h às 19h<br>
+  Feito com queijo, pão fresco e muito carinho de rato.
+  <div class="selo-escolar">📚 Site desenvolvido como trabalho escolar — apenas para fins de demonstração, sem vendas reais.</div>
+</footer>
+
+<script>
+/* =========================================================
+   DADOS DOS PRODUTOS
+   custo = 30% do preço | lucro = 70% do preço (margem fixa)
+   ========================================================= */
+const nomesRatinhos = ["Bigodinho","Queijolina","Ratão Gourmet","Migalha","Sr. Roeu-Tudo","Ratinha Fon-Fon","Farelo","Dona Casca-Dourada"];
+
+const produtosBrutos = [
+  { nome:"Pão francês", emoji:"🥖", preco:0.80, opiniao:"Crocante por fora, fofinho por dentro — um clássico que nunca falha!" },
+  { nome:"Croissant", emoji:"🥐", preco:6.50, opiniao:"As camadinhas amanteigadas me fazem correr até a última migalha!" },
+  { nome:"Pão de queijo", emoji:"🧀", preco:3.50, opiniao:"Se roedor tivesse prato favorito de verdade, seria este aqui!" },
+  { nome:"Bolo (fatia)", emoji:"🍰", preco:7.00, opiniao:"Fofinho, doce na medida certa, meu rabo balança de tanta felicidade!" },
+  { nome:"Torradas", emoji:"🍞", preco:8.90, opiniao:"Crocantes e perfeitas pra roer devagarinho." },
+  { nome:"Biscoitos", emoji:"🍪", preco:6.50, opiniao:"Não consigo comer só um... aliás, nem dez!" },
+  { nome:"Frutas (porção)", emoji:"🍎", preco:5.00, opiniao:"Fresquinhas e docinhas, aprovadíssimas pela equipe de ratinhos." },
+  { nome:"Geleia", emoji:"🍓", preco:12.00, opiniao:"Um vidrinho de felicidade concentrada, ótima com pão francês!" },
+  { nome:"Mel", emoji:"🍯", preco:18.00, opiniao:"Puro, dourado e viciante — melhor amigo das torradas." },
+  { nome:"Cereal", emoji:"🥣", preco:14.90, opiniao:"Crocante logo cedo, energia total pra correr o dia inteiro." },
+  { nome:"Refrigerante", emoji:"🥤", preco:5.00, opiniao:"Gelado e borbulhante, combina com qualquer lanche." },
+  { nome:"Suco de laranja", emoji:"🍊", preco:7.00, opiniao:"Vitamina C que deixa até rato preguiçoso animado!" },
+  { nome:"Suco de uva", emoji:"🍇", preco:7.00, opiniao:"Docinho e roxo, o favorito da toca inteira." },
+  { nome:"Café", emoji:"☕", preco:4.50, opiniao:"Aroma que acorda até o rato mais dorminhoco." },
+  { nome:"Milk-shake", emoji:"🥤", preco:12.00, opiniao:"Cremoso, gelado e vale a pena sujar o bigode." },
+  { nome:"Pão na chapa", emoji:"🍞", preco:6.00, opiniao:"Manteiga derretendo... não existe café da manhã melhor." },
+  { nome:"Tapioca", emoji:"🫓", preco:9.00, opiniao:"Recheio generoso e massinha macia, aprovação unânime!" },
+  { nome:"Sanduíche natural", emoji:"🥪", preco:10.00, opiniao:"Leve e fresquinho, ótimo pra rato que também cuida da linha." },
+  { nome:"Pão de batata", emoji:"🥔", preco:5.50, opiniao:"Macio por dentro, casquinha dourada por fora — irresistível!" },
+  { nome:"Muffin", emoji:"🧁", preco:7.50, opiniao:"Fofinho e doce na medida, some rapidinho do balcão." },
+  { nome:"Brigadeiro", emoji:"🍫", preco:3.00, opiniao:"Redondinho, chocolatudo e feito pra ser devorado em uma mordida." },
+  { nome:"Salada de frutas", emoji:"🍉", preco:9.00, opiniao:"Colorida, fresca e leve — aprovadíssima pelas ratinhas fitness." },
+  { nome:"Cappuccino", emoji:"☕", preco:8.50, opiniao:"Espuminha cremosa que até rato pequeno aprova." },
+  { nome:"Água mineral", emoji:"💧", preco:4.00, opiniao:"Simples, gelada e sempre bem-vinda depois do lanche." },
+  { nome:"Empada de frango", emoji:"🥧", preco:8.00, opiniao:"Massinha crocante escondendo um recheio surpreendente!" },
+  { nome:"Coxinha", emoji:"🍗", preco:7.00, opiniao:"Formato de gota, sabor de paixão — clássico dos clássicos!" },
+  { nome:"Pastel de queijo", emoji:"🥟", preco:8.00, opiniao:"Crocante, quentinho, com aquele fio de queijo derretendo." },
+  { nome:"Quiche", emoji:"🥧", preco:11.00, opiniao:"Sofisticada até pra ratinho chique de bigode aparado." },
+  { nome:"Brownie", emoji:"🍫", preco:8.50, opiniao:"Denso, achocolatado, com a casquinha rachada perfeita." },
+  { nome:"Pudim (fatia)", emoji:"🍮", preco:8.00, opiniao:"Calda de caramelo escorrendo... impossível resistir!" },
+  { nome:"Cheesecake (fatia)", emoji:"🍰", preco:12.00, opiniao:"Cremoso, com aquele toque azedinho da fruta por cima." },
+  { nome:"Café com leite", emoji:"☕", preco:5.50, opiniao:"Suave, quentinho e perfeito pra molhar o pão francês." },
+  { nome:"Mocha", emoji:"☕", preco:10.00, opiniao:"Café e chocolate numa xícara só, combinação perfeita!" },
+  { nome:"Limonada", emoji:"🍋", preco:6.50, opiniao:"Refrescante e azedinha na medida, ótima nos dias quentes." }
+];
+
+const produtos = produtosBrutos.map((p, i) => ({
+  id: i + 1,
+  nome: p.nome,
+  emoji: p.emoji,
+  preco: p.preco,
+  custo: +(p.preco * 0.30).toFixed(2),
+  lucro: +(p.preco * 0.70).toFixed(2),
+  opiniao: p.opiniao,
+  rato: nomesRatinhos[i % nomesRatinhos.length]
+}));
+
+function formatarReal(valor){
+  return valor.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+}
+
+/* =========================================================
+   RENDERIZAÇÃO DO CARDÁPIO
+   ========================================================= */
+const grid = document.getElementById('cardapio-grid');
+const semResultado = document.getElementById('sem-resultado');
+
+function renderizarCardapio(lista){
+  grid.innerHTML = "";
+  semResultado.style.display = lista.length ? "none" : "block";
+  lista.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'card-produto';
+    card.innerHTML = `
+      <div class="card-topo">
+        <div class="emoji-produto">${p.emoji}</div>
+        <div class="nome-produto">${p.nome}</div>
+      </div>
+      <div class="opiniao-rato">
+        <span class="rato-icone">🐭</span>
+        <span><span class="autor-rato">${p.rato} opina:</span>"${p.opiniao}"</span>
+      </div>
+      <div class="precos-produto">
+        <div>
+          <span class="preco-final">${formatarReal(p.preco)}</span>
+          venda ao cliente
+        </div>
+        <div class="col-custo">
+          custo: ${formatarReal(p.custo)}<br>
+          lucro: <b>${formatarReal(p.lucro)} (70%)</b>
+        </div>
+      </div>
+      <button class="btn-add-carrinho" data-id="${p.id}">➕ Adicionar ao carrinho</button>
+    `;
+    grid.appendChild(card);
+  });
+  document.querySelectorAll('.btn-add-carrinho').forEach(btn => {
+    btn.addEventListener('click', () => {
+      adicionarAoCarrinho(parseInt(btn.dataset.id));
+      btn.textContent = "✔ Adicionado!";
+      btn.classList.add('adicionado');
+      setTimeout(() => {
+        btn.textContent = "➕ Adicionar ao carrinho";
+        btn.classList.remove('adicionado');
+      }, 900);
+    });
+  });
+}
+renderizarCardapio(produtos);
+
+/* Busca */
+document.getElementById('campo-busca').addEventListener('input', (e) => {
+  const termo = e.target.value.trim().toLowerCase();
+  const filtrado = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+  renderizarCardapio(filtrado);
+});
+
+/* =========================================================
+   CARRINHO
+   ========================================================= */
+let carrinho = {}; // {id: quantidade}
+
+function adicionarAoCarrinho(id){
+  carrinho[id] = (carrinho[id] || 0) + 1;
+  atualizarCarrinho();
+}
+function alterarQuantidade(id, delta){
+  if(!carrinho[id]) return;
+  carrinho[id] += delta;
+  if(carrinho[id] <= 0) delete carrinho[id];
+  atualizarCarrinho();
+}
+
+function atualizarCarrinho(){
+  const contador = document.getElementById('contador-carrinho');
+  const itensDiv = document.getElementById('itens-carrinho');
+  const vazioDiv = document.getElementById('carrinho-vazio');
+  const resumoDiv = document.getElementById('resumo-carrinho');
+  const ids = Object.keys(carrinho);
+
+  const totalItens = ids.reduce((acc, id) => acc + carrinho[id], 0);
+  contador.textContent = totalItens;
+
+  if(ids.length === 0){
+    itensDiv.innerHTML = "";
+    vazioDiv.style.display = "block";
+    resumoDiv.style.display = "none";
+    return;
+  }
+
+  vazioDiv.style.display = "none";
+  resumoDiv.style.display = "block";
+
+  itensDiv.innerHTML = "";
+  let subtotal = 0;
+  ids.forEach(id => {
+    const p = produtos.find(x => x.id == id);
+    const qtd = carrinho[id];
+    subtotal += p.preco * qtd;
+    const item = document.createElement('div');
+    item.className = 'item-carrinho';
+    item.innerHTML = `
+      <div class="emoji-produto">${p.emoji}</div>
+      <div class="item-info">
+        <div class="nome">${p.nome}</div>
+        <div class="preco-unit">${formatarReal(p.preco)} / unid.</div>
+      </div>
+      <div class="qtd-controle">
+        <button data-id="${p.id}" data-delta="-1">−</button>
+        <span>${qtd}</span>
+        <button data-id="${p.id}" data-delta="1">+</button>
+      </div>
+    `;
+    itensDiv.appendChild(item);
+  });
+
+  document.querySelectorAll('.qtd-controle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      alterarQuantidade(parseInt(btn.dataset.id), parseInt(btn.dataset.delta));
+    });
+  });
+
+  document.getElementById('resumo-subtotal').textContent = formatarReal(subtotal);
+  atualizarResumoTotal(subtotal);
+}
+
+function atualizarResumoTotal(subtotal){
+  const total = subtotal + (freteAtual ? freteAtual.valor : 0);
+  document.getElementById('resumo-total').textContent = formatarReal(total);
+  document.getElementById('resumo-frete').textContent = freteAtual
+    ? formatarReal(freteAtual.valor)
+    : "calcule na seção de frete";
+}
+
+/* Abrir / fechar painel do carrinho */
+const overlay = document.getElementById('overlay-carrinho');
+document.getElementById('btn-abrir-carrinho').addEventListener('click', () => overlay.classList.add('aberto'));
+document.getElementById('btn-fechar-carrinho').addEventListener('click', () => overlay.classList.remove('aberto'));
+overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('aberto'); });
+
+document.getElementById('btn-finalizar').addEventListener('click', () => {
+  alert("🐭 Este é um projeto escolar de demonstração!\n\nA 'Lanchonete dos Ratinhos' é uma loja fictícia e não realiza vendas ou pagamentos reais. Obrigado por visitar nosso trabalho! 🧀");
+});
+
+/* =========================================================
+   CÁLCULO DE FRETE (a partir do Centro de Araguaína-TO)
+   ========================================================= */
+const TAXA_BASE = 5.00;      // taxa fixa de saída da loja
+const VALOR_POR_KM = 1.80;   // valor cobrado por km rodado
+
+// distâncias aproximadas (em km) de bairros conhecidos de Araguaína-TO até o Centro
+const distanciasBairros = {
+  "centro": 0.6,
+  "setor aeroporto": 3.4,
+  "cimba": 4.1,
+  "filadelfia": 5.3,
+  "filadélfia": 5.3,
+  "jardim goias": 3.0,
+  "jardim goiás": 3.0,
+  "alto da boa vista": 2.7,
+  "novo horizonte": 6.0,
+  "nova ipe": 4.6,
+  "nova ipê": 4.6,
+  "urbano": 2.1,
+  "raizal": 6.8,
+  "jardim araguaia": 4.9,
+  "setor rodoviario": 2.4,
+  "setor rodoviário": 2.4,
+  "buritizinho": 6.3,
+  "vila azul": 3.7,
+  "anhanguera": 5.1,
+  "setor oeste": 2.9,
+  "pedro afonso": 7.8,
+  "morada do sol": 5.8,
+  "jardim das oliveiras": 4.3,
+  "vila real": 4.0
+};
+
+// gera uma distância consistente (2 a 14km) para bairros não cadastrados,
+// usando o próprio nome digitado como "semente" do cálculo
+function distanciaEstimada(nomeBairro){
+  let soma = 0;
+  for(let i = 0; i < nomeBairro.length; i++){
+    soma += nomeBairro.charCodeAt(i);
+  }
+  return +(2 + (soma % 130) / 10).toFixed(1); // entre 2.0 e 14.9 km
+}
+
+function normalizar(texto){
+  return texto.trim().toLowerCase();
+}
+
+let freteAtual = null;
+
+document.getElementById('btn-calcular-frete').addEventListener('click', () => {
+  const rua = document.getElementById('input-rua').value.trim();
+  const quadra = document.getElementById('input-quadra').value.trim();
+  const numero = document.getElementById('input-numero').value.trim();
+  const bairro = document.getElementById('input-bairro').value.trim();
+  const resultadoDiv = document.getElementById('resultado-frete');
+
+  if(!rua || !numero || !bairro){
+    resultadoDiv.style.display = "block";
+    resultadoDiv.className = "erro";
+    resultadoDiv.innerHTML = `🐭 Opa! Preencha pelo menos <b>rua</b>, <b>número</b> e <b>bairro</b> para calcularmos o frete até sua casa.`;
+    return;
+  }
+
+  const chaveBairro = normalizar(bairro);
+  let distancia = distanciasBairros[chaveBairro];
+  let bairroConhecido = true;
+  if(distancia === undefined){
+    distancia = distanciaEstimada(chaveBairro);
+    bairroConhecido = false;
+  }
+
+  const valorFrete = +(TAXA_BASE + distancia * VALOR_POR_KM).toFixed(2);
+  freteAtual = { valor: valorFrete, distancia, bairro };
+
+  resultadoDiv.style.display = "block";
+  resultadoDiv.className = "";
+  resultadoDiv.innerHTML = `
+    <div class="linha-frete"><span>📍 Distância até ${bairro}</span><span>${distancia.toFixed(1)} km ${bairroConhecido ? "" : "(estimativa)"}</span></div>
+    <div class="linha-frete"><span>Taxa base de entrega</span><span>${formatarReal(TAXA_BASE)}</span></div>
+    <div class="linha-frete"><span>Valor por km (${formatarReal(VALOR_POR_KM)}/km)</span><span>${formatarReal(distancia * VALOR_POR_KM)}</span></div>
+    <div class="linha-frete total"><span>🚚 Total do frete</span><span>${formatarReal(valorFrete)}</span></div>
+  `;
+
+  const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+    const p = produtos.find(x => x.id == id);
+    return acc + p.preco * carrinho[id];
+  }, 0);
+  if(Object.keys(carrinho).length){
+    atualizarResumoTotal(subtotalAtual);
+  }
+});
+</script>
+</body>
+</html>
