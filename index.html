@@ -1,1 +1,2247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lanchonete dos Ratinhos 🐭🧀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --laranja: #E8722A;
+    --laranja-escuro: #C4581A;
+    --laranja-claro: #FFB672;
+    --creme: #FFF6E9;
+    --marrom: #5A3A22;
+    --queijo: #FFD166;
+    --rosa-nariz: #F27A9E;
+    --verde-ok: #4C9A5A;
+    --sombra: 0 8px 20px rgba(90,58,34,0.15);
+    --sombra-suave: 0 4px 12px rgba(90,58,34,0.10);
 
+    --cor-paes: #C4712B;
+    --cor-doces: #D9628E;
+    --cor-bebidas: #3C8FA8;
+    --cor-despensa: #6E9B4E;
+    --dourado: #E8B23C;
+    --cor-suporte: #7C6BAE;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  input, select, textarea, button{ font-size:16px; }
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:var(--creme);
+    color:var(--marrom);
+    background-image:
+      radial-gradient(circle at 95% 8%, rgba(232,114,42,0.08) 0, transparent 40%),
+      radial-gradient(circle at 5% 60%, rgba(255,209,102,0.15) 0, transparent 35%),
+      radial-gradient(circle, rgba(196,88,26,0.05) 1.5px, transparent 1.5px);
+    background-size:auto, auto, 26px 26px;
+  }
+  h1,h2,h3, .titulo-fonte{ font-family:'Baloo 2', sans-serif; }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:'Nunito', sans-serif; cursor:pointer; border:none; }
+
+  /* ---------- FAIXA PROMOCIONAL ---------- */
+  .faixa-promo{
+    background:var(--marrom);
+    color:#f3e3d1;
+    font-size:0.72rem;
+    font-weight:700;
+    padding:7px 16px;
+    letter-spacing:0.2px;
+    white-space:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+    text-align:center;
+  }
+  .faixa-promo::-webkit-scrollbar{ display:none; }
+  .faixa-promo span{ opacity:0.55; margin:0 8px; }
+
+  /* ---------- HEADER ---------- */
+  .topo-fixo{
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  header{
+    background: linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+    color:#fff;
+    padding:14px 18px;
+    box-shadow: var(--sombra);
+  }
+  .header-linha{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Baloo 2', sans-serif;
+    font-size:1.4rem;
+    font-weight:800;
+  }
+  .logo .queijo-icone{
+    background:var(--queijo);
+    color:var(--marrom);
+    width:42px;height:42px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+    border:3px solid #fff;
+    flex-shrink:0;
+  }
+  .logo small{
+    display:block;
+    font-family:'Nunito',sans-serif;
+    font-weight:600;
+    font-size:0.65rem;
+    opacity:0.9;
+    letter-spacing:0.5px;
+  }
+  nav.acoes{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .btn-nav{
+    background:rgba(255,255,255,0.18);
+    color:#fff;
+    padding:9px 14px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:0.85rem;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:0.2s;
+    border:1px solid rgba(255,255,255,0.35);
+  }
+  .btn-nav:hover{ background:rgba(255,255,255,0.32); transform:translateY(-1px); }
+  .btn-carrinho{
+    background:var(--queijo);
+    color:var(--marrom);
+    border:none;
+    position:relative;
+  }
+  .btn-carrinho:hover{ background:#ffcb4d; }
+  .contador-carrinho{
+    position:absolute;
+    top:-6px; right:-6px;
+    background:var(--rosa-nariz);
+    color:#fff;
+    font-size:0.7rem;
+    font-weight:800;
+    width:20px;height:20px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid #fff;
+  }
+  .contador-carrinho.pulso{ animation:pulsoContador 0.45s ease; }
+  @keyframes pulsoContador{
+    0%{ transform:scale(1); }
+    40%{ transform:scale(1.5); background:var(--verde-ok); }
+    100%{ transform:scale(1); }
+  }
+  .barra-busca{
+    max-width:1100px;
+    margin:10px auto 0;
+    display:flex;
+    align-items:center;
+    background:#fff;
+    border-radius:999px;
+    padding:8px 16px;
+    gap:8px;
+    box-shadow:inset 0 0 0 2px rgba(232,114,42,0.15);
+  }
+  .barra-busca input{
+    border:none;
+    outline:none;
+    flex:1;
+    font-size:16px;
+    font-family:'Nunito',sans-serif;
+    color:var(--marrom);
+    background:transparent;
+  }
+  .barra-busca span{ color:var(--laranja); font-size:1.1rem; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:38px 20px 18px;
+    display:flex;
+    align-items:center;
+    gap:26px;
+    flex-wrap:wrap;
+  }
+  .hero-texto{ flex:1 1 320px; }
+  .hero-texto .aviso-escolar{
+    display:inline-block;
+    background:#FFEFD9;
+    color:var(--laranja-escuro);
+    font-weight:800;
+    font-size:0.72rem;
+    padding:5px 12px;
+    border-radius:999px;
+    margin-bottom:12px;
+    letter-spacing:0.3px;
+    border:1px dashed var(--laranja);
+  }
+  .hero-texto h1{
+    font-size:2.3rem;
+    line-height:1.15;
+    margin:0 0 12px;
+    background:linear-gradient(120deg, var(--laranja-escuro) 0%, var(--laranja) 55%, var(--dourado) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-texto p{ font-size:1.02rem; line-height:1.5; max-width:480px; }
+  .hero-stats{ display:flex; gap:18px; margin-top:18px; flex-wrap:wrap; }
+  .hero-stats .stat{ display:flex; flex-direction:column; }
+  .hero-stats .stat b{ font-size:1.15rem; color:var(--laranja-escuro); font-family:'Baloo 2', sans-serif; }
+  .hero-stats .stat span{ font-size:0.7rem; color:#8a6a4f; }
+  .hero-botoes{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+  .btn-principal{
+    background:linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+    color:#fff;
+    padding:13px 22px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:0.95rem;
+    box-shadow:0 8px 18px rgba(232,114,42,0.35);
+    transition:0.25s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-principal:hover{ transform:translateY(-2px) scale(1.02); box-shadow:0 10px 22px rgba(232,114,42,0.45); }
+  .btn-secundario{
+    background:#fff;
+    color:var(--laranja-escuro);
+    padding:13px 22px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:0.95rem;
+    border:2px solid var(--laranja-claro);
+    transition:0.2s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-secundario:hover{ background:#FFF1E0; transform:translateY(-2px); }
+
+  .hero-mascote{
+    flex:1 1 260px;
+    display:flex;
+    justify-content:center;
+  }
+  .balao-mascote{
+    background:#fff;
+    border-radius:26px;
+    padding:26px 22px;
+    text-align:center;
+    box-shadow:0 16px 32px rgba(90,58,34,0.18);
+    border:3px solid var(--queijo);
+    max-width:300px;
+    position:relative;
+    animation:flutuar 3.5s ease-in-out infinite;
+  }
+  @keyframes flutuar{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+  .balao-mascote .rato-grande{ font-size:4.2rem; display:block; margin-bottom:6px; }
+  .balao-mascote p{
+    font-size:0.9rem;
+    font-style:italic;
+    margin:6px 0 0;
+    color:var(--marrom);
+  }
+  .buracos-decor{
+    position:absolute;
+    bottom:-14px; left:20px;
+    display:flex;
+    gap:8px;
+  }
+  .buracos-decor span{
+    width:22px;height:14px;
+    background:var(--marrom);
+    border-radius:50%;
+    display:block;
+    opacity:0.15;
+  }
+
+  /* ---------- FAIXA DE CONFIANÇA (estilo loja online) ---------- */
+  .faixa-confianca{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 20px 10px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+  }
+  .item-confianca{
+    background:#fff;
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:var(--sombra-suave);
+    border:1px solid #FFE6C7;
+  }
+  .item-confianca .icone-confianca{
+    font-size:1.3rem;
+    width:38px;height:38px;
+    border-radius:50%;
+    background:var(--creme);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .item-confianca .texto-confianca{ line-height:1.25; }
+  .item-confianca .texto-confianca b{ display:block; font-size:0.8rem; color:var(--marrom); }
+  .item-confianca .texto-confianca span{ font-size:0.7rem; color:#a0805f; }
+
+  /* ---------- ABAS PRINCIPAIS ---------- */
+  .abas-principais{
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    padding:10px 14px;
+    box-shadow:0 4px 14px rgba(90,58,34,0.08);
+    flex-wrap:wrap;
+    border-bottom:1px solid #FFE6C7;
+  }
+  .aba-item{
+    background:transparent;
+    color:#a0805f;
+    font-weight:800;
+    font-size:0.85rem;
+    padding:10px 18px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:0.25s;
+    border:2px solid transparent;
+  }
+  .aba-item .aba-emoji{ font-size:1rem; }
+  .aba-item:hover{ color:var(--laranja-escuro); background:#FFF3E0; }
+  .aba-item.ativa{
+    background:linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+    color:#fff;
+    box-shadow:0 6px 14px rgba(232,114,42,0.35);
+    transform:translateY(-1px);
+  }
+  .conteudo-aba{
+    display:none;
+  }
+  .conteudo-aba.ativa{
+    display:block;
+    animation:surgirAba 0.35s ease both;
+  }
+  @keyframes surgirAba{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- SECOES GERAIS ---------- */
+  section{ max-width:1100px; margin:0 auto; padding:26px 20px; }
+  .titulo-secao{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .titulo-secao h2{ font-size:1.6rem; color:var(--laranja-escuro); margin:0; }
+  .subtitulo-secao{ color:#8a6a4f; font-size:0.92rem; margin:0 0 18px; }
+
+  /* ---------- ORDENAR E FILTRAR POR PREÇO ---------- */
+  .barra-ordenar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+  }
+  .barra-ordenar label{
+    font-size:0.8rem;
+    font-weight:800;
+    color:var(--laranja-escuro);
+  }
+  .barra-ordenar select{
+    padding:9px 14px;
+    border-radius:10px;
+    border:2px solid #FFE1B8;
+    background:#fff;
+    color:var(--marrom);
+    font-weight:700;
+    font-size:0.85rem;
+    outline:none;
+  }
+  .barra-ordenar select:focus{ border-color:var(--laranja); }
+
+  .chips-preco{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:4px;
+    margin-bottom:14px;
+    scrollbar-width:thin;
+  }
+  .chip-preco{
+    flex-shrink:0;
+    background:#fff;
+    border:2px solid #E7E0EE;
+    color:var(--marrom);
+    padding:8px 14px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:0.78rem;
+    transition:0.2s;
+  }
+  .chip-preco:hover{ border-color:var(--laranja-claro); transform:translateY(-1px); }
+  .chip-preco.ativo{
+    background:var(--marrom);
+    border-color:var(--marrom);
+    color:#fff;
+    box-shadow:0 6px 14px rgba(90,58,34,0.25);
+  }
+
+  /* ---------- BARRA DE CATEGORIAS ---------- */
+  .barra-categorias{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:10px 0 14px;
+    margin-bottom:12px;
+    scrollbar-width:thin;
+  }
+  .barra-categorias::-webkit-scrollbar{ height:5px; }
+  .barra-categorias::-webkit-scrollbar-thumb{ background:var(--laranja-claro); border-radius:10px; }
+  .btn-categoria{
+    flex-shrink:0;
+    background:#fff;
+    border:2px solid #FFE1B8;
+    color:var(--marrom);
+    padding:9px 16px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:0.82rem;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:0.2s;
+  }
+  .btn-categoria:hover{ border-color:var(--laranja-claro); transform:translateY(-1px); }
+  .btn-categoria.ativo{
+    background:var(--laranja);
+    border-color:var(--laranja);
+    color:#fff;
+    box-shadow:var(--sombra-suave);
+  }
+  .btn-categoria .bolinha{
+    width:9px;height:9px;
+    border-radius:50%;
+    display:inline-block;
+    background:currentColor;
+  }
+
+  /* ---------- GRID CARDAPIO ---------- */
+  #cardapio-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .card-produto{
+    background:#fff;
+    border-radius:18px;
+    padding:16px;
+    box-shadow:var(--sombra-suave);
+    border:2px solid #FFE6C7;
+    display:flex;
+    flex-direction:column;
+    transition:0.2s;
+    position:relative;
+    overflow:hidden;
+    animation:surgirCard 0.35s ease both;
+  }
+  @keyframes surgirCard{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .card-produto::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:5px;
+    background:var(--cor-categoria, var(--laranja));
+  }
+  .card-produto:hover{
+    transform:translateY(-5px) scale(1.015);
+    box-shadow:0 16px 28px -8px color-mix(in srgb, var(--cor-categoria, var(--laranja)) 45%, transparent);
+    border-color:var(--cor-categoria, var(--laranja-claro));
+  }
+  .selo-destaque{
+    position:absolute;
+    top:10px; right:10px;
+    background:var(--dourado);
+    color:#5A3A22;
+    font-size:0.62rem;
+    font-weight:800;
+    padding:4px 9px;
+    border-radius:999px;
+    box-shadow:0 3px 8px rgba(232,178,60,0.5);
+    z-index:2;
+  }
+  .avaliacao-produto{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:0.7rem;
+    color:#a0805f;
+    margin-bottom:8px;
+  }
+  .avaliacao-produto .queijinhos{ letter-spacing:1px; font-size:0.75rem; }
+  .etiqueta-categoria{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:0.62rem;
+    font-weight:800;
+    color:var(--cor-categoria, var(--laranja));
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    margin-bottom:6px;
+  }
+  .etiqueta-categoria .bolinha{ width:7px;height:7px;border-radius:50%;background:var(--cor-categoria, var(--laranja)); }
+  .card-topo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  }
+  .emoji-produto{
+    font-size:2rem;
+    background:linear-gradient(145deg, #FFF6E9, #FFEAC8);
+    border-radius:14px;
+    width:50px;height:50px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    border:2px solid var(--queijo);
+  }
+  .nome-produto{ font-weight:800; font-size:0.98rem; line-height:1.15; }
+  .opiniao-rato{
+    background:#FFF3E0;
+    border-radius:12px;
+    padding:9px 11px;
+    font-size:0.76rem;
+    color:#7a5636;
+    display:flex;
+    gap:7px;
+    align-items:flex-start;
+    margin-bottom:10px;
+    flex:1;
+  }
+  .opiniao-rato .rato-icone{ font-size:1rem; flex-shrink:0; }
+  .opiniao-rato .autor-rato{ font-weight:800; color:var(--laranja-escuro); display:block; margin-bottom:2px; }
+  .precos-produto{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top:1px dashed #F0D2AE;
+    padding-top:8px;
+    margin-bottom:10px;
+    font-size:0.7rem;
+    color:#a0805f;
+  }
+  .precos-produto .preco-final{
+    font-size:1.1rem;
+    font-weight:800;
+    color:var(--laranja-escuro);
+    display:block;
+  }
+  .precos-produto .col-custo{ text-align:right; line-height:1.4; }
+  .precos-produto .col-custo b{ color:var(--verde-ok); }
+  .btn-add-carrinho{
+    background:var(--laranja);
+    color:#fff;
+    padding:9px 10px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:0.78rem;
+    text-align:center;
+    transition:0.2s;
+    flex:1;
+  }
+  .btn-add-carrinho:hover{ background:var(--laranja-escuro); }
+  .btn-add-carrinho.adicionado{ background:var(--verde-ok); }
+
+  .linha-acao-card{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .seletor-quantidade{
+    display:flex;
+    align-items:center;
+    gap:0;
+    background:var(--creme);
+    border-radius:10px;
+    border:2px solid #FFE1B8;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .seletor-quantidade button{
+    width:38px;
+    height:40px;
+    background:transparent;
+    color:var(--laranja-escuro);
+    font-weight:800;
+    font-size:1.15rem;
+    transition:0.15s;
+  }
+  .seletor-quantidade button:hover{ background:var(--queijo); }
+  .seletor-quantidade .qtd-selecionada{
+    min-width:22px;
+    text-align:center;
+    font-weight:800;
+    font-size:0.88rem;
+    color:var(--marrom);
+  }
+
+  #sem-resultado{
+    display:none;
+    text-align:center;
+    padding:30px;
+    color:#a0805f;
+    font-weight:700;
+  }
+
+  /* ---------- FRETE ---------- */
+  #frete{
+    background:linear-gradient(135deg, #FFF1DD, #FFE3C2);
+    border-radius:24px;
+    margin:26px 20px;
+    max-width:1060px;
+  }
+  .frete-caixa{
+    background:#fff;
+    border-radius:22px;
+    padding:26px;
+    box-shadow:0 14px 30px rgba(90,58,34,0.12);
+    border:2px solid #FFE6C7;
+  }
+  .frete-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .campo-frete{ display:flex; flex-direction:column; gap:5px; }
+  .campo-frete.full{ grid-column:1 / -1; }
+  .campo-frete label{ font-size:0.78rem; font-weight:800; color:var(--laranja-escuro); }
+  .campo-frete input{
+    padding:12px;
+    border-radius:10px;
+    border:2px solid #FFDDB0;
+    font-size:16px;
+    font-family:'Nunito',sans-serif;
+    outline:none;
+  }
+  .campo-frete input:focus{ border-color:var(--laranja); }
+  .indicador-auto{
+    margin-top:14px;
+    font-size:0.76rem;
+    color:var(--laranja-escuro);
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#FFF1DD;
+    padding:9px 12px;
+    border-radius:10px;
+    width:fit-content;
+  }
+  #resultado-frete.aguardando{
+    display:block;
+    background:#FFF9F0;
+    border:2px dashed #FFDDB0;
+    color:#a0805f;
+    font-size:0.82rem;
+    text-align:center;
+  }
+  #resultado-frete{
+    margin-top:16px;
+    background:linear-gradient(160deg, #F3FBEF, #E9F7E2);
+    border:2px solid #CBEAC0;
+    border-radius:16px;
+    padding:16px 18px;
+    display:none;
+    box-shadow:0 8px 18px rgba(76,154,90,0.15);
+  }
+  #resultado-frete.erro{ background:#FDEAEA; border-color:#F4BFBF; }
+  #resultado-frete .linha-frete{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.88rem;
+    padding:3px 0;
+  }
+  #resultado-frete .linha-frete.total{ font-weight:800; font-size:1rem; border-top:1px dashed #b9d9ae; margin-top:6px; padding-top:8px; }
+  .aviso-frete-gratis{
+    margin-top:10px;
+    background:#FFF1DD;
+    color:var(--laranja-escuro);
+    font-size:0.76rem;
+    font-weight:700;
+    padding:8px 10px;
+    border-radius:10px;
+    text-align:center;
+  }
+  .aviso-frete-gratis.conquistado{
+    background:#E3F5DD;
+    color:var(--verde-ok);
+  }
+  .origem-loja{ font-size:0.75rem; color:#8a6a4f; margin-top:10px; display:flex; gap:6px; align-items:center; }
+
+  /* ---------- SUPORTE ---------- */
+  .grade-suporte{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  @media (min-width:800px){
+    .grade-suporte{ grid-template-columns:1.4fr 1fr; align-items:start; }
+  }
+  .coluna-faq h3, .coluna-contato h3{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--cor-suporte);
+    font-size:1.05rem;
+    margin:0 0 14px;
+  }
+  .item-faq{
+    background:#fff;
+    border:2px solid #EDE5F5;
+    border-radius:14px;
+    padding:4px 16px;
+    margin-bottom:10px;
+    box-shadow:var(--sombra-suave);
+    transition:0.2s;
+  }
+  .item-faq:hover{ border-color:var(--cor-suporte); }
+  .item-faq summary{
+    padding:13px 0;
+    font-weight:800;
+    font-size:0.9rem;
+    color:var(--marrom);
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .item-faq summary::-webkit-details-marker{ display:none; }
+  .item-faq .seta-faq{
+    color:var(--cor-suporte);
+    font-size:1.1rem;
+    font-weight:800;
+    transition:transform 0.25s ease;
+    flex-shrink:0;
+  }
+  .item-faq[open] .seta-faq{ transform:rotate(180deg); }
+  .item-faq p{
+    margin:0 0 14px;
+    font-size:0.85rem;
+    color:#7a5636;
+    line-height:1.55;
+  }
+
+  .cartao-contato-rapido{
+    background:linear-gradient(135deg, #F1ECFA, #E4DBF5);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:18px;
+    border:1px solid #DCCFF0;
+  }
+  .cartao-contato-rapido ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:9px; }
+  .cartao-contato-rapido li{ font-size:0.85rem; color:var(--marrom); display:flex; align-items:center; gap:8px; }
+
+  .cartao-formulario{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:var(--sombra-suave);
+    border:2px solid #EDE5F5;
+  }
+  .cartao-formulario form{ display:flex; flex-direction:column; }
+  .cartao-formulario label{
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--cor-suporte);
+    margin:10px 0 4px;
+  }
+  .cartao-formulario label:first-of-type{ margin-top:0; }
+  .cartao-formulario input,
+  .cartao-formulario select,
+  .cartao-formulario textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:2px solid #EDE5F5;
+    font-family:'Nunito',sans-serif;
+    font-size:16px;
+    outline:none;
+    resize:vertical;
+    background:var(--creme);
+  }
+  .cartao-formulario input:focus,
+  .cartao-formulario select:focus,
+  .cartao-formulario textarea:focus{ border-color:var(--cor-suporte); background:#fff; }
+  .cartao-formulario button{
+    margin-top:16px;
+    background:linear-gradient(135deg, var(--cor-suporte), #5F4E96);
+    color:#fff;
+    padding:13px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:0.92rem;
+    box-shadow:0 8px 18px rgba(124,107,174,0.35);
+    transition:0.2s;
+  }
+  .cartao-formulario button:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(124,107,174,0.45); }
+
+  /* ---------- CARRINHO (modal) ---------- */
+  .overlay{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(90,58,34,0.45);
+    z-index:100;
+    align-items:flex-start;
+    justify-content:flex-end;
+  }
+  .overlay.aberto{ display:flex; }
+  .painel-carrinho{
+    background:var(--creme);
+    width:100%;
+    max-width:400px;
+    height:100%;
+    padding:20px;
+    overflow-y:auto;
+    box-shadow:-10px 0 24px rgba(0,0,0,0.2);
+    animation:entrar 0.25s ease;
+  }
+  @keyframes entrar{ from{ transform:translateX(30px); opacity:0;} to{ transform:translateX(0); opacity:1;} }
+  .painel-topo{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+  .painel-topo h2{ margin:0; color:var(--laranja-escuro); font-size:1.3rem; }
+  .fechar-painel{ background:#fff; border-radius:50%; width:40px;height:40px; font-size:1.2rem; font-weight:800; color:var(--laranja-escuro); box-shadow:var(--sombra); flex-shrink:0; }
+  #itens-carrinho{ display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .item-carrinho{
+    background:#fff;
+    border-radius:12px;
+    padding:10px 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 3px 8px rgba(90,58,34,0.08);
+  }
+  .item-carrinho .emoji-produto{ width:38px;height:38px; font-size:1.4rem; }
+  .item-info{ flex:1; }
+  .item-info .nome{ font-weight:800; font-size:0.85rem; }
+  .item-info .preco-unit{ font-size:0.72rem; color:#a0805f; }
+  .qtd-controle{ display:flex; align-items:center; gap:6px; }
+  .qtd-controle button{
+    width:30px;height:30px;
+    background:var(--laranja-claro);
+    color:#fff;
+    border-radius:50%;
+    font-weight:800;
+    font-size:1rem;
+  }
+  .qtd-controle span{ font-weight:800; min-width:16px; text-align:center; }
+  #carrinho-vazio{ text-align:center; padding:30px 10px; color:#a0805f; }
+  #carrinho-vazio .emoji-vazio{ font-size:2.5rem; display:block; margin-bottom:8px; }
+  .resumo-carrinho{
+    background:#fff;
+    border-radius:14px;
+    padding:14px;
+    font-size:0.88rem;
+  }
+  .barra-frete-gratis{
+    margin-bottom:14px;
+  }
+  .barra-frete-gratis .texto-frete-gratis{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--laranja-escuro);
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .barra-frete-gratis .texto-frete-gratis.conquistado{ color:var(--verde-ok); }
+  .barra-frete-gratis .trilho{
+    height:9px;
+    background:var(--creme);
+    border-radius:999px;
+    overflow:hidden;
+    border:1px solid #FFE1B8;
+  }
+  .barra-frete-gratis .preenchimento{
+    height:100%;
+    background:linear-gradient(90deg, var(--laranja), var(--dourado));
+    border-radius:999px;
+    transition:width 0.4s ease;
+  }
+  .barra-frete-gratis.conquistado .preenchimento{ background:linear-gradient(90deg, var(--verde-ok), #7DC98A); }
+  .resumo-carrinho .linha{ display:flex; justify-content:space-between; padding:4px 0; }
+  .resumo-carrinho .linha.total{ font-weight:800; font-size:1.05rem; border-top:1px dashed #F0D2AE; margin-top:6px; padding-top:8px; color:var(--laranja-escuro); }
+  #btn-finalizar{
+    width:100%;
+    margin-top:14px;
+    background:var(--marrom);
+    color:#fff;
+    padding:13px;
+    border-radius:12px;
+    font-weight:800;
+  }
+  .nota-demo{
+    font-size:0.72rem;
+    color:#a0805f;
+    text-align:center;
+    margin-top:8px;
+    line-height:1.4;
+  }
+
+  /* ---------- CUPOM DE DESCONTO ---------- */
+  .cupom-box{
+    display:flex;
+    gap:6px;
+    margin-bottom:6px;
+    background:linear-gradient(135deg, #FFF6E9, #FFEAC8);
+    padding:8px;
+    border-radius:12px;
+    border:1px dashed var(--dourado);
+  }
+  .cupom-box input{
+    flex:1;
+    padding:12px;
+    border-radius:10px;
+    border:2px solid #FFE1B8;
+    font-family:'Nunito',sans-serif;
+    font-size:16px;
+    text-transform:uppercase;
+    outline:none;
+    background:#fff;
+  }
+  .cupom-box input:focus{ border-color:var(--laranja); }
+  .cupom-box button{
+    background:var(--marrom);
+    color:#fff;
+    padding:0 16px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:0.8rem;
+    flex-shrink:0;
+  }
+  .cupom-box button:hover{ background:#452c19; }
+  .dica-cupom{
+    font-size:0.68rem;
+    color:#a0805f;
+    margin:0 0 8px;
+    line-height:1.4;
+  }
+  #mensagem-cupom{
+    font-size:0.76rem;
+    font-weight:700;
+    margin:0 0 10px;
+    display:none;
+    padding:7px 10px;
+    border-radius:8px;
+  }
+  #mensagem-cupom.sucesso{ display:block; background:#E3F5DD; color:var(--verde-ok); }
+  #mensagem-cupom.erro{ display:block; background:#FDEAEA; color:#C0392B; }
+  #linha-desconto{ color:var(--verde-ok); font-weight:700; }
+
+  /* ---------- PAINEL DE PERFIL ---------- */
+  .cartao-perfil{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:linear-gradient(135deg, #FFF1DD, #FFE3C2);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:16px;
+    box-shadow:0 8px 18px rgba(232,178,60,0.2);
+    border:1px solid #FFDDA8;
+  }
+  .cartao-perfil .avatar-perfil{
+    font-size:2rem;
+    background:#fff;
+    border-radius:50%;
+    width:52px;height:52px;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--queijo);
+    flex-shrink:0;
+  }
+  .cartao-perfil b{ display:block; font-size:0.95rem; color:var(--marrom); }
+  .cartao-perfil span{ font-size:0.7rem; color:#a0805f; }
+  .bloco-perfil{ margin-bottom:18px; }
+  .bloco-perfil h4{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--laranja-escuro);
+    font-size:0.95rem;
+    margin:0 0 10px;
+  }
+  .bloco-perfil label{
+    font-size:0.75rem;
+    font-weight:800;
+    color:var(--laranja-escuro);
+    display:block;
+    margin-bottom:4px;
+    margin-top:10px;
+  }
+  .bloco-perfil input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:2px solid #FFE1B8;
+    font-family:'Nunito',sans-serif;
+    font-size:16px;
+    outline:none;
+  }
+  .bloco-perfil input:focus{ border-color:var(--laranja); }
+  .endereco-salvo{
+    background:#fff;
+    border:2px solid #FFE6C7;
+    border-radius:12px;
+    padding:10px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+    transition:0.2s;
+  }
+  .endereco-salvo:hover{ border-color:var(--laranja-claro); transform:translateX(2px); box-shadow:0 6px 14px rgba(90,58,34,0.1); }
+  .endereco-salvo b{ display:block; font-size:0.85rem; }
+  .endereco-salvo span{ font-size:0.72rem; color:#a0805f; }
+  .btn-usar-endereco{
+    background:var(--laranja);
+    color:#fff;
+    font-weight:800;
+    font-size:0.75rem;
+    padding:8px 12px;
+    border-radius:8px;
+    flex-shrink:0;
+    transition:0.2s;
+  }
+  .btn-usar-endereco:hover{ background:var(--laranja-escuro); }
+  .pedidos-vazio{
+    text-align:center;
+    background:#FFF9F0;
+    border:2px dashed #FFDDB0;
+    border-radius:12px;
+    padding:22px 14px;
+    font-size:0.82rem;
+    color:#a0805f;
+    line-height:1.5;
+  }
+  .pedidos-vazio span{ font-size:1.8rem; display:block; margin-bottom:6px; }
+
+  /* ---------- TOAST DE NOTIFICAÇÃO ---------- */
+  .toast-container{
+    position:fixed;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:200;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:min(360px, 92vw);
+    pointer-events:none;
+  }
+  .toast-carrinho{
+    background:#fff;
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 14px 28px rgba(90,58,34,0.25);
+    border:2px solid var(--verde-ok);
+    animation:entrarToast 0.35s ease;
+  }
+  .toast-carrinho.saindo{
+    animation:sairToast 0.35s ease forwards;
+  }
+  @keyframes entrarToast{
+    from{ opacity:0; transform:translateY(16px) scale(0.95); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  @keyframes sairToast{
+    from{ opacity:1; transform:translateY(0) scale(1); }
+    to{ opacity:0; transform:translateY(16px) scale(0.95); }
+  }
+  .toast-carrinho .toast-emoji{
+    font-size:1.6rem;
+    background:var(--creme);
+    border-radius:50%;
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .toast-carrinho .toast-texto{ flex:1; line-height:1.3; }
+  .toast-carrinho .toast-texto b{ font-size:0.85rem; color:var(--marrom); display:block; }
+  .toast-carrinho .toast-texto span{ font-size:0.72rem; color:#a0805f; }
+  .toast-carrinho .toast-check{
+    color:var(--verde-ok);
+    font-size:1.2rem;
+    font-weight:800;
+    flex-shrink:0;
+  }
+  @media (max-width:420px){
+    .toast-container{ bottom:12px; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--marrom);
+    color:#f3e3d1;
+    padding:34px 20px 20px;
+    margin-top:34px;
+    font-size:0.82rem;
+    line-height:1.6;
+  }
+  .rodape-grid{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding-bottom:22px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  @media (min-width:700px){
+    .rodape-grid{ grid-template-columns:1.3fr 1fr 1fr 1fr; }
+  }
+  footer .rodape-titulo{ font-family:'Baloo 2',sans-serif; font-size:1.2rem; margin-bottom:8px; color:var(--queijo); display:flex; align-items:center; gap:8px; }
+  footer .coluna-rodape h4{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--queijo);
+    font-size:0.9rem;
+    margin:0 0 10px;
+  }
+  footer .coluna-rodape ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px; }
+  footer .coluna-rodape ul li{ opacity:0.85; }
+  footer .redes-sociais{ display:flex; gap:10px; margin-top:12px; }
+  footer .redes-sociais span{
+    width:34px;height:34px;
+    background:rgba(255,255,255,0.1);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.95rem;
+  }
+  footer .rodape-baixo{
+    max-width:1100px;
+    margin:16px auto 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:0.72rem;
+    opacity:0.7;
+  }
+  footer .selo-escolar{
+    display:inline-block;
+    background:rgba(255,255,255,0.08);
+    border:1px dashed rgba(255,255,255,0.3);
+    padding:8px 14px;
+    border-radius:10px;
+  }
+
+  /* ---------- RESPONSIVO ---------- */
+  @media (min-width:640px){
+    #cardapio-grid{ grid-template-columns:1fr 1fr; gap:20px; }
+  }
+
+  @media (max-width:600px){
+    #cardapio-grid{ grid-template-columns:1fr 1fr; gap:10px; }
+
+    /* cabeçalho mais compacto */
+    header{ padding:10px 14px; }
+    .logo{ font-size:1.15rem; gap:8px; }
+    .logo .queijo-icone{ width:36px; height:36px; font-size:1.15rem; }
+    .logo small{ font-size:0.58rem; }
+
+    /* menu vira uma grade 2x2 de botões grandes e fáceis de tocar */
+    nav.acoes{
+      width:100%;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:6px;
+    }
+    /* Cardápio e Frete já ficam disponíveis na barra de abas logo abaixo */
+    nav.acoes .btn-nav[data-aba]{ display:none; }
+    .btn-nav{
+      justify-content:center;
+      padding:11px 10px;
+      font-size:0.78rem;
+      min-height:42px;
+    }
+
+    .barra-busca{ margin-top:8px; padding:9px 14px; }
+
+    /* abas principais ocupam a largura toda, mais fáceis de tocar */
+    .abas-principais{ padding:8px 10px; gap:6px; }
+    .aba-item{
+      flex:1;
+      justify-content:center;
+      padding:11px 8px;
+      font-size:0.76rem;
+      min-height:42px;
+    }
+
+    /* hero mais enxuto */
+    .hero{ padding:26px 16px 14px; gap:18px; }
+    .hero-texto h1{ font-size:1.7rem; }
+    .hero-texto p{ font-size:0.92rem; }
+    .hero-stats{ gap:14px; }
+    .hero-botoes{ flex-direction:column; }
+    .hero-botoes .btn-principal, .hero-botoes .btn-secundario{ justify-content:center; width:100%; }
+    .balao-mascote{ max-width:100%; }
+
+    .faixa-confianca{ grid-template-columns:1fr 1fr; gap:8px; padding:0 16px 8px; }
+    .item-confianca{ padding:10px; }
+    .item-confianca .texto-confianca b{ font-size:0.74rem; }
+    .item-confianca .texto-confianca span{ font-size:0.64rem; }
+
+    section{ padding:20px 16px; }
+
+    /* cartões de produto: linha de ação organizada e botões maiores pra tocar */
+    .linha-acao-card{ gap:6px; }
+    .btn-add-carrinho{ min-height:42px; font-size:0.76rem; }
+    .seletor-quantidade button{ width:34px; height:38px; }
+
+    /* frete: campos maiores e mais espaçados */
+    .frete-caixa{ padding:18px; }
+    .frete-grid{ grid-template-columns:1fr; gap:10px; }
+    .campo-frete input{ padding:13px; }
+
+    /* cupom: input e botão empilhados, mais fáceis de usar */
+    .cupom-box{ flex-direction:column; }
+    .cupom-box button{ padding:12px; }
+
+    /* carrinho e perfil ocupam a tela toda no celular */
+    .painel-carrinho{ max-width:100%; padding:16px; }
+
+    footer{ padding:28px 16px 90px; } /* espaço extra embaixo pra não ficar atrás da barra do navegador */
+
+    /* suporte: cartões mais compactos */
+    .item-faq summary{ font-size:0.84rem; }
+    .cartao-contato-rapido, .cartao-formulario{ padding:16px; }
+
+    /* ordenar e filtro de preço mais compactos */
+    .barra-ordenar{ width:100%; }
+    .barra-ordenar select{ flex:1; }
+    .chip-preco{ font-size:0.74rem; padding:7px 12px; }
+  }
+
+  @media (max-width:420px){
+    .hero-texto h1{ font-size:1.55rem; }
+    .card-produto{ padding:12px; }
+    .emoji-produto{ width:44px;height:44px; font-size:1.6rem; }
+    .nome-produto{ font-size:0.86rem; }
+    .rodape-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa-promo">🎉 Frete GRÁTIS em compras acima de R$ 60,00 <span>•</span> 🚚 Frete calculado automaticamente pelo seu endereço <span>•</span> 🐭 Provado e aprovado por ratinhos</div>
+
+<div class="topo-fixo">
+<header>
+  <div class="header-linha">
+    <div class="logo">
+      <span class="queijo-icone">🐭</span>
+      <div>
+        Lanchonete dos Ratinhos
+        <small>PADARIA &amp; CAFÉ • ARAGUAÍNA-TO</small>
+      </div>
+    </div>
+    <nav class="acoes">
+      <button class="btn-nav" data-aba="cardapio">📖 Cardápio</button>
+      <button class="btn-nav" data-aba="frete">📍 Calcular Frete</button>
+      <button class="btn-nav" data-aba="suporte">💬 Suporte</button>
+      <button class="btn-nav" id="btn-abrir-perfil">👤 Perfil</button>
+      <button class="btn-nav btn-carrinho" id="btn-abrir-carrinho">
+        🧺 Carrinho
+        <span class="contador-carrinho" id="contador-carrinho">0</span>
+      </button>
+    </nav>
+  </div>
+  <div class="barra-busca">
+    <span>🔍</span>
+    <input type="text" id="campo-busca" placeholder="Buscar comidinha... ex: croissant, café, pudim">
+  </div>
+</header>
+
+<nav class="abas-principais" id="abas-principais">
+  <button class="aba-item ativa" data-aba="inicio"><span class="aba-emoji">🏠</span>Início</button>
+  <button class="aba-item" data-aba="cardapio"><span class="aba-emoji">📖</span>Cardápio</button>
+  <button class="aba-item" data-aba="frete"><span class="aba-emoji">📍</span>Calcular Frete</button>
+  <button class="aba-item" data-aba="suporte"><span class="aba-emoji">💬</span>Suporte</button>
+</nav>
+</div>
+
+<div class="conteudo-aba ativa" id="aba-inicio">
+<section class="hero">
+  <div class="hero-texto">
+    <span class="aviso-escolar">🎓 Projeto escolar — loja fictícia de demonstração</span>
+    <h1>Pão quentinho, queijo derretendo e ratinhos experts em cada mordida 🧀</h1>
+    <p>Bem-vindo(a) à padaria mais fofa da cidade! Cada produto tem a opinião sincera de um ratinho provador de plantão. Escolha, adicione ao carrinho e calcule o frete até a sua casa.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>34</b><span>produtos no cardápio</span></div>
+      <div class="stat"><b>4.6 🧀</b><span>avaliação média</span></div>
+      <div class="stat"><b>+70%</b><span>lucro médio da loja</span></div>
+    </div>
+    <div class="hero-botoes">
+      <button class="btn-principal" data-aba="cardapio">📖 Ver Cardápio</button>
+      <button class="btn-secundario" data-aba="frete">📍 Calcular meu Frete</button>
+    </div>
+  </div>
+  <div class="hero-mascote">
+    <div class="balao-mascote">
+      <span class="rato-grande">🐁🧀</span>
+      <strong>Bigodinho, o rato-chef</strong>
+      <p>"Cheirinho de pão fresco é a coisa mais gostosa da toca inteira!"</p>
+      <div class="buracos-decor"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="faixa-confianca">
+  <div class="item-confianca">
+    <span class="icone-confianca">🚚</span>
+    <div class="texto-confianca"><b>Frete grátis</b><span>Em compras acima de R$60</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">🧀</span>
+    <div class="texto-confianca"><b>34 produtos</b><span>Direto do forno pra você</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">🐭</span>
+    <div class="texto-confianca"><b>Avaliado por ratinhos</b><span>Opinião em cada item</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">📍</span>
+    <div class="texto-confianca"><b>Saída do Centro</b><span>Araguaína-TO</span></div>
+  </div>
+</div>
+</div>
+
+<div class="conteudo-aba" id="aba-cardapio">
+<section id="cardapio">
+  <div class="titulo-secao"><h2>📖 Nosso Cardápio</h2></div>
+  <p class="subtitulo-secao">Preços e margens de lucro parecidos com os de uma padaria de verdade, organizados por categoria (fins didáticos).</p>
+
+  <div class="barra-ordenar">
+    <label for="select-ordenar">↕️ Ordenar por</label>
+    <select id="select-ordenar">
+      <option value="padrao">Relevância</option>
+      <option value="menor-preco">Menor preço</option>
+      <option value="maior-preco">Maior preço</option>
+      <option value="melhor-avaliacao">Melhor avaliação 🧀</option>
+      <option value="az">Nome (A-Z)</option>
+    </select>
+  </div>
+
+  <div class="chips-preco" id="chips-preco">
+    <button class="chip-preco ativo" data-faixa="todos">💰 Todos os preços</button>
+    <button class="chip-preco" data-faixa="ate5">🟢 Até R$5</button>
+    <button class="chip-preco" data-faixa="5a10">🟡 R$5 a R$10</button>
+    <button class="chip-preco" data-faixa="acima10">🟠 Acima de R$10</button>
+  </div>
+
+  <div class="barra-categorias" id="barra-categorias"></div>
+  <div id="cardapio-grid"></div>
+  <p id="sem-resultado">🐭 Nenhum produto encontrado... nem o faro apurado do ratinho achou isso no cardápio!</p>
+</section>
+</div>
+
+<div class="conteudo-aba" id="aba-frete">
+<section id="frete">
+  <div class="frete-caixa">
+    <div class="titulo-secao"><h2>📍 Calcular Frete</h2></div>
+    <p class="subtitulo-secao">Preencha seu endereço. Calculamos automaticamente a distância a partir da nossa loja, no Centro de Araguaína-TO.</p>
+    <div class="frete-grid">
+      <div class="campo-frete full">
+        <label for="input-rua">Rua / Avenida</label>
+        <input type="text" id="input-rua" placeholder="Ex: Avenida Filadélfia">
+      </div>
+      <div class="campo-frete">
+        <label for="input-quadra">Quadra</label>
+        <input type="text" id="input-quadra" placeholder="Ex: Quadra 15">
+      </div>
+      <div class="campo-frete">
+        <label for="input-numero">Número da casa</label>
+        <input type="text" id="input-numero" placeholder="Ex: 245">
+      </div>
+      <div class="campo-frete">
+        <label for="input-complemento">Complemento</label>
+        <input type="text" id="input-complemento" placeholder="Ex: Casa dos fundos (opcional)">
+      </div>
+      <div class="campo-frete">
+        <label for="input-bairro">Bairro</label>
+        <input type="text" id="input-bairro" placeholder="Ex: Setor Aeroporto">
+      </div>
+    </div>
+    <div class="indicador-auto">🔄 O frete é calculado automaticamente enquanto você preenche o endereço</div>
+    <div id="resultado-frete"></div>
+    <div class="origem-loja">🏠 Loja de origem: Centro de Araguaína-TO (ponto de referência fixo para o cálculo)</div>
+  </div>
+</section>
+</div>
+
+<div class="conteudo-aba" id="aba-suporte">
+<section id="suporte">
+  <div class="titulo-secao"><h2>💬 Central de Suporte</h2></div>
+  <p class="subtitulo-secao">Tire suas dúvidas sobre pedidos, frete, cupons e a loja. Nosso time de ratinhos está sempre de bigode em pé pra ajudar!</p>
+
+  <div class="grade-suporte">
+    <div class="coluna-faq">
+      <h3>❓ Perguntas frequentes</h3>
+
+      <details class="item-faq" open>
+        <summary><span>Como funciona o cálculo do frete?</span><span class="seta-faq">⌄</span></summary>
+        <p>Assim que você preenche rua, número e bairro na aba de Frete, calculamos automaticamente a distância até a nossa loja no Centro de Araguaína-TO e mostramos o valor na hora, sem precisar clicar em nenhum botão.</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Compras acima de R$ 60 realmente têm frete grátis?</span><span class="seta-faq">⌄</span></summary>
+        <p>Sim! Quando o subtotal do seu carrinho atinge R$ 60,00, o frete é liberado automaticamente. Você pode acompanhar isso pela barrinha de progresso dentro do carrinho.</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Posso usar mais de um cupom no mesmo pedido?</span><span class="seta-faq">⌄</span></summary>
+        <p>Por enquanto, apenas um cupom por pedido. Aplicar um novo código substitui o cupom anterior.</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Este site vende produtos de verdade?</span><span class="seta-faq">⌄</span></summary>
+        <p>Não! A Lanchonete dos Ratinhos é uma loja fictícia, criada como projeto escolar de demonstração. Nenhum pagamento ou entrega real é realizado.</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Como funciona a avaliação em queijinhos 🧀?</span><span class="seta-faq">⌄</span></summary>
+        <p>Cada produto é "provado" e avaliado por um dos nossos ratinhos, que dá sua opinião sincera e uma nota de 1 a 5 queijinhos — quanto mais queijinhos, mais aprovado pela equipe!</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Meus dados de perfil e endereço ficam salvos?</span><span class="seta-faq">⌄</span></summary>
+        <p>Não. Como é uma demonstração, nada é salvo de verdade — ao atualizar a página, tudo volta ao estado inicial.</p>
+      </details>
+
+      <details class="item-faq">
+        <summary><span>Quais formas de pagamento vocês aceitam?</span><span class="seta-faq">⌄</span></summary>
+        <p>Nenhuma forma de pagamento real é processada aqui. O botão "Finalizar pedido" apenas simula a conclusão de uma compra, para fins educativos.</p>
+      </details>
+    </div>
+
+    <div class="coluna-contato">
+      <div class="cartao-contato-rapido">
+        <h3>📞 Fale com a gente</h3>
+        <ul>
+          <li><span>📍</span> Centro, Araguaína-TO</li>
+          <li><span>🕒</span> Seg. a sáb., 6h às 19h</li>
+          <li><span>📞</span> (63) 0000-0000</li>
+          <li><span>✉️</span> contato@ratinhos.com</li>
+        </ul>
+      </div>
+
+      <div class="cartao-formulario">
+        <h3>✉️ Envie sua dúvida</h3>
+        <form id="form-suporte">
+          <label for="suporte-nome">Nome</label>
+          <input type="text" id="suporte-nome" placeholder="Seu nome" required>
+
+          <label for="suporte-assunto">Assunto</label>
+          <select id="suporte-assunto">
+            <option>Dúvida sobre o cardápio</option>
+            <option>Dúvida sobre o frete</option>
+            <option>Dúvida sobre cupons</option>
+            <option>Outro assunto</option>
+          </select>
+
+          <label for="suporte-mensagem">Mensagem</label>
+          <textarea id="suporte-mensagem" rows="4" placeholder="Conte pra gente o que você precisa saber..." required></textarea>
+
+          <button type="submit">🐭 Enviar dúvida</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<div class="overlay" id="overlay-carrinho">
+  <div class="painel-carrinho">
+    <div class="painel-topo">
+      <h2>🧺 Seu Carrinho</h2>
+      <button class="fechar-painel" id="btn-fechar-carrinho">✕</button>
+    </div>
+    <div id="itens-carrinho"></div>
+    <div id="carrinho-vazio">
+      <span class="emoji-vazio">🐭🍞</span>
+      Seu carrinho está vazio.<br>Que tal escolher algo gostoso no cardápio?
+    </div>
+    <div class="resumo-carrinho" id="resumo-carrinho" style="display:none;">
+      <div class="barra-frete-gratis" id="barra-frete-gratis"></div>
+
+      <div class="cupom-box">
+        <input type="text" id="input-cupom" placeholder="Código do cupom (ex: RATINHOS10)">
+        <button id="btn-aplicar-cupom">Aplicar</button>
+      </div>
+      <p class="dica-cupom">💡 Cupons de demonstração: <b>RATINHOS10</b>, <b>BEMVINDO5</b>, <b>FRETEGRATIS</b></p>
+      <p id="mensagem-cupom"></p>
+
+      <div class="linha"><span>Subtotal</span><span id="resumo-subtotal">R$ 0,00</span></div>
+      <div class="linha" id="linha-desconto" style="display:none;"><span id="texto-desconto">Desconto</span><span id="valor-desconto">- R$ 0,00</span></div>
+      <div class="linha"><span>Frete</span><span id="resumo-frete">calcule na aba de frete</span></div>
+      <div class="linha total"><span>Total</span><span id="resumo-total">R$ 0,00</span></div>
+      <button id="btn-finalizar">Finalizar pedido</button>
+      <p class="nota-demo">⚠️ Este site é um projeto escolar de demonstração. Nenhuma compra real é processada.</p>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-perfil">
+  <div class="painel-carrinho painel-perfil">
+    <div class="painel-topo">
+      <h2>👤 Meu Perfil</h2>
+      <button class="fechar-painel" id="btn-fechar-perfil">✕</button>
+    </div>
+
+    <div class="cartao-perfil">
+      <span class="avatar-perfil">🐭</span>
+      <div>
+        <b id="nome-exibido-perfil">Visitante Ratinho</b>
+        <span>Cliente desde hoje • conta de demonstração</span>
+      </div>
+    </div>
+
+    <div class="bloco-perfil">
+      <label for="perfil-nome">Nome</label>
+      <input type="text" id="perfil-nome" placeholder="Como podemos te chamar?">
+      <label for="perfil-email">E-mail</label>
+      <input type="email" id="perfil-email" placeholder="seuemail@exemplo.com">
+    </div>
+
+    <div class="bloco-perfil">
+      <h4>📍 Endereços salvos</h4>
+      <div class="endereco-salvo" data-rua="Avenida Filadélfia" data-quadra="Quadra 22" data-numero="145" data-complemento="Casa" data-bairro="Filadélfia">
+        <div>
+          <b>🏠 Casa</b>
+          <span>Av. Filadélfia, 145 — Filadélfia</span>
+        </div>
+        <button class="btn-usar-endereco">Usar</button>
+      </div>
+      <div class="endereco-salvo" data-rua="Rua 15 de Novembro" data-quadra="Quadra 8" data-numero="302" data-complemento="Apto 201" data-bairro="Setor Aeroporto">
+        <div>
+          <b>💼 Trabalho</b>
+          <span>Rua 15 de Novembro, 302 — Setor Aeroporto</span>
+        </div>
+        <button class="btn-usar-endereco">Usar</button>
+      </div>
+    </div>
+
+    <div class="bloco-perfil">
+      <h4>🧾 Meus pedidos</h4>
+      <div class="pedidos-vazio">
+        <span>🐭📦</span>
+        Você ainda não fez nenhum pedido por aqui.<br>É só ir até o cardápio e montar o seu!
+      </div>
+    </div>
+
+    <p class="nota-demo">⚠️ Perfil fictício — nada aqui é salvo de verdade, é só pra deixar a demonstração mais completa.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="rodape-grid">
+    <div class="coluna-rodape">
+      <div class="rodape-titulo">🐭 Lanchonete dos Ratinhos 🧀</div>
+      <p style="opacity:0.85; max-width:320px;">Padaria de bairro com o cuidado de quem prova cada receita antes de servir. Pão fresco, café quentinho e muito carinho.</p>
+      <div class="redes-sociais">
+        <span>📷</span><span>📘</span><span>🐦</span><span>💬</span>
+      </div>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Categorias</h4>
+      <ul>
+        <li>🥖 Pães & Salgados</li>
+        <li>🍰 Doces & Sobremesas</li>
+        <li>☕ Bebidas</li>
+        <li>🍯 Despensa</li>
+      </ul>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Atendimento</h4>
+      <ul>
+        <li>📍 Centro, Araguaína-TO</li>
+        <li>🕒 Seg. a sáb., 6h às 19h</li>
+        <li>📞 (63) 0000-0000</li>
+        <li>✉️ contato@ratinhos.com</li>
+      </ul>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Sobre a loja</h4>
+      <ul>
+        <li>🎓 Projeto escolar</li>
+        <li>🐭 Opiniões dos ratinhos</li>
+        <li>🚚 Cálculo de frete automático</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rodape-baixo">
+    <span>© 2026 Lanchonete dos Ratinhos — todos os direitos reservados (fictício)</span>
+    <span class="selo-escolar">📚 Site de demonstração escolar — sem vendas reais</span>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   CATEGORIAS
+   cada categoria tem uma cor e uma margem de lucro típica
+   de padaria (produtos de panificação vendem com margem
+   menor, doces e bebidas preparadas com margem maior)
+   ========================================================= */
+const categorias = {
+  paes:     { nome:"Pães & Salgados",     emoji:"🥖", cor:"var(--cor-paes)" },
+  doces:    { nome:"Doces & Sobremesas",  emoji:"🍰", cor:"var(--cor-doces)" },
+  bebidas:  { nome:"Bebidas",             emoji:"☕", cor:"var(--cor-bebidas)" },
+  despensa: { nome:"Despensa",            emoji:"🍯", cor:"var(--cor-despensa)" }
+};
+
+const nomesRatinhos = ["Bigodinho","Queijolina","Ratão Gourmet","Migalha","Sr. Roeu-Tudo","Ratinha Fon-Fon","Farelo","Dona Casca-Dourada"];
+
+/* preco = preço de venda | margem = % de lucro sobre o preço (padrão de padaria) */
+const produtosBrutos = [
+  { nome:"Pão francês",       emoji:"🥖", cat:"paes",     preco:0.70,  margem:0.35, opiniao:"Crocante por fora, fofinho por dentro — um clássico que nunca falha!" },
+  { nome:"Croissant",         emoji:"🥐", cat:"paes",     preco:5.50,  margem:0.35, opiniao:"As camadinhas amanteigadas me fazem correr até a última migalha!" },
+  { nome:"Pão de queijo",     emoji:"🧀", cat:"paes",     preco:3.00,  margem:0.35, opiniao:"Se roedor tivesse prato favorito de verdade, seria este aqui!" },
+  { nome:"Bolo (fatia)",      emoji:"🍰", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Fofinho, doce na medida certa, meu rabo balança de tanta felicidade!" },
+  { nome:"Torradas",          emoji:"🍞", cat:"paes",     preco:7.50,  margem:0.35, opiniao:"Crocantes e perfeitas pra roer devagarinho." },
+  { nome:"Biscoitos",         emoji:"🍪", cat:"doces",    preco:5.50,  margem:0.50, opiniao:"Não consigo comer só um... aliás, nem dez!" },
+  { nome:"Frutas (porção)",   emoji:"🍎", cat:"despensa", preco:4.50,  margem:0.30, opiniao:"Fresquinhas e docinhas, aprovadíssimas pela equipe de ratinhos." },
+  { nome:"Geleia",            emoji:"🍓", cat:"despensa", preco:9.00,  margem:0.30, opiniao:"Um vidrinho de felicidade concentrada, ótima com pão francês!" },
+  { nome:"Mel",                emoji:"🍯", cat:"despensa", preco:14.00, margem:0.30, opiniao:"Puro, dourado e viciante — melhor amigo das torradas." },
+  { nome:"Cereal",             emoji:"🥣", cat:"despensa", preco:11.90, margem:0.30, opiniao:"Crocante logo cedo, energia total pra correr o dia inteiro." },
+  { nome:"Refrigerante",       emoji:"🥤", cat:"bebidas",  preco:4.00,  margem:0.25, opiniao:"Gelado e borbulhante, combina com qualquer lanche." },
+  { nome:"Suco de laranja",    emoji:"🍊", cat:"bebidas",  preco:5.50,  margem:0.50, opiniao:"Vitamina C que deixa até rato preguiçoso animado!" },
+  { nome:"Suco de uva",        emoji:"🍇", cat:"bebidas",  preco:5.50,  margem:0.50, opiniao:"Docinho e roxo, o favorito da toca inteira." },
+  { nome:"Café",                emoji:"☕", cat:"bebidas",  preco:3.00,  margem:0.55, opiniao:"Aroma que acorda até o rato mais dorminhoco." },
+  { nome:"Milk-shake",          emoji:"🥤", cat:"bebidas",  preco:9.00,  margem:0.50, opiniao:"Cremoso, gelado e vale a pena sujar o bigode." },
+  { nome:"Pão na chapa",        emoji:"🍞", cat:"paes",     preco:4.50,  margem:0.35, opiniao:"Manteiga derretendo... não existe café da manhã melhor." },
+  { nome:"Tapioca",             emoji:"🫓", cat:"paes",     preco:7.00,  margem:0.40, opiniao:"Recheio generoso e massinha macia, aprovação unânime!" },
+  { nome:"Sanduíche natural",   emoji:"🥪", cat:"paes",     preco:8.00,  margem:0.40, opiniao:"Leve e fresquinho, ótimo pra rato que também cuida da linha." },
+  { nome:"Pão de batata",       emoji:"🥔", cat:"paes",     preco:4.00,  margem:0.35, opiniao:"Macio por dentro, casquinha dourada por fora — irresistível!" },
+  { nome:"Muffin",              emoji:"🧁", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Fofinho e doce na medida, some rapidinho do balcão." },
+  { nome:"Brigadeiro",          emoji:"🍫", cat:"doces",    preco:2.50,  margem:0.60, opiniao:"Redondinho, chocolatudo e feito pra ser devorado em uma mordida." },
+  { nome:"Salada de frutas",    emoji:"🍉", cat:"doces",    preco:7.00,  margem:0.40, opiniao:"Colorida, fresca e leve — aprovadíssima pelas ratinhas fitness." },
+  { nome:"Cappuccino",          emoji:"☕", cat:"bebidas",  preco:6.50,  margem:0.50, opiniao:"Espuminha cremosa que até rato pequeno aprova." },
+  { nome:"Água mineral",        emoji:"💧", cat:"bebidas",  preco:3.00,  margem:0.25, opiniao:"Simples, gelada e sempre bem-vinda depois do lanche." },
+  { nome:"Empada de frango",    emoji:"🥧", cat:"paes",     preco:6.00,  margem:0.40, opiniao:"Massinha crocante escondendo um recheio surpreendente!" },
+  { nome:"Coxinha",             emoji:"🍗", cat:"paes",     preco:5.50,  margem:0.40, opiniao:"Formato de gota, sabor de paixão — clássico dos clássicos!" },
+  { nome:"Pastel de queijo",    emoji:"🥟", cat:"paes",     preco:6.00,  margem:0.40, opiniao:"Crocante, quentinho, com aquele fio de queijo derretendo." },
+  { nome:"Quiche",              emoji:"🥧", cat:"paes",     preco:8.50,  margem:0.40, opiniao:"Sofisticada até pra ratinho chique de bigode aparado." },
+  { nome:"Brownie",             emoji:"🍫", cat:"doces",    preco:6.50,  margem:0.55, opiniao:"Denso, achocolatado, com a casquinha rachada perfeita." },
+  { nome:"Pudim (fatia)",       emoji:"🍮", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Calda de caramelo escorrendo... impossível resistir!" },
+  { nome:"Cheesecake (fatia)",  emoji:"🍰", cat:"doces",    preco:9.00,  margem:0.55, opiniao:"Cremoso, com aquele toque azedinho da fruta por cima." },
+  { nome:"Café com leite",      emoji:"☕", cat:"bebidas",  preco:4.00,  margem:0.50, opiniao:"Suave, quentinho e perfeito pra molhar o pão francês." },
+  { nome:"Mocha",               emoji:"☕", cat:"bebidas",  preco:7.50,  margem:0.50, opiniao:"Café e chocolate numa xícara só, combinação perfeita!" },
+  { nome:"Limonada",            emoji:"🍋", cat:"bebidas",  preco:5.00,  margem:0.50, opiniao:"Refrescante e azedinha na medida, ótima nos dias quentes." }
+];
+
+// itens em destaque na loja (selo "mais vendido")
+const maisVendidos = ["Pão de queijo", "Coxinha", "Café", "Brigadeiro", "Croissant", "Pastel de queijo"];
+
+// gera avaliação (3.5 a 5.0 queijinhos) e nº de avaliações de forma consistente por produto
+function gerarAvaliacao(nome){
+  let soma = 0;
+  for(let i = 0; i < nome.length; i++) soma += nome.charCodeAt(i);
+  const nota = +(3.5 + (soma % 16) / 10).toFixed(1); // 3.5 a 5.0
+  const qtdAvaliacoes = 20 + (soma % 260); // 20 a 280
+  return { nota, qtdAvaliacoes };
+}
+
+function desenharQueijinhos(nota){
+  const cheios = Math.round(nota);
+  return "🧀".repeat(cheios) + "▫️".repeat(5 - cheios);
+}
+
+const produtos = produtosBrutos.map((p, i) => {
+  const avaliacao = gerarAvaliacao(p.nome);
+  return {
+    id: i + 1,
+    nome: p.nome,
+    emoji: p.emoji,
+    cat: p.cat,
+    preco: p.preco,
+    custo: +(p.preco * (1 - p.margem)).toFixed(2),
+    lucro: +(p.preco * p.margem).toFixed(2),
+    margemPct: Math.round(p.margem * 100),
+    opiniao: p.opiniao,
+    rato: nomesRatinhos[i % nomesRatinhos.length],
+    destaque: maisVendidos.includes(p.nome),
+    nota: avaliacao.nota,
+    qtdAvaliacoes: avaliacao.qtdAvaliacoes
+  };
+});
+
+function formatarReal(valor){
+  return valor.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+}
+
+/* =========================================================
+   BARRA DE CATEGORIAS
+   ========================================================= */
+let categoriaAtiva = "todos";
+const barraCategorias = document.getElementById('barra-categorias');
+
+function renderizarBarraCategorias(){
+  const lista = [{ chave:"todos", nome:"Todos", emoji:"🐭", cor:"var(--laranja)" }]
+    .concat(Object.entries(categorias).map(([chave, c]) => ({ chave, nome:c.nome, emoji:c.emoji, cor:c.cor })));
+
+  barraCategorias.innerHTML = lista.map(c => `
+    <button class="btn-categoria ${categoriaAtiva === c.chave ? 'ativo' : ''}" data-cat="${c.chave}" style="${categoriaAtiva===c.chave ? '' : `color:${c.cor}`}">
+      <span class="bolinha" style="background:${categoriaAtiva===c.chave ? '#fff' : c.cor}"></span>
+      ${c.emoji} ${c.nome}
+    </button>
+  `).join("");
+
+  document.querySelectorAll('.btn-categoria').forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoriaAtiva = btn.dataset.cat;
+      renderizarBarraCategorias();
+      aplicarFiltros();
+    });
+  });
+}
+renderizarBarraCategorias();
+
+/* =========================================================
+   RENDERIZAÇÃO DO CARDÁPIO
+   ========================================================= */
+const grid = document.getElementById('cardapio-grid');
+const semResultado = document.getElementById('sem-resultado');
+
+function renderizarCardapio(lista){
+  grid.innerHTML = "";
+  semResultado.style.display = lista.length ? "none" : "block";
+  lista.forEach(p => {
+    const c = categorias[p.cat];
+    const card = document.createElement('div');
+    card.className = 'card-produto';
+    card.style.setProperty('--cor-categoria', c.cor);
+    card.innerHTML = `
+      ${p.destaque ? '<span class="selo-destaque">🔥 Mais vendido</span>' : ''}
+      <span class="etiqueta-categoria"><span class="bolinha"></span>${c.nome}</span>
+      <div class="card-topo">
+        <div class="emoji-produto">${p.emoji}</div>
+        <div class="nome-produto">${p.nome}</div>
+      </div>
+      <div class="avaliacao-produto">
+        <span class="queijinhos">${desenharQueijinhos(p.nota)}</span>
+        <span>${p.nota.toFixed(1)} (${p.qtdAvaliacoes})</span>
+      </div>
+      <div class="opiniao-rato">
+        <span class="rato-icone">🐭</span>
+        <span><span class="autor-rato">${p.rato} opina:</span>"${p.opiniao}"</span>
+      </div>
+      <div class="precos-produto">
+        <div>
+          <span class="preco-final">${formatarReal(p.preco)}</span>
+          venda ao cliente
+        </div>
+        <div class="col-custo">
+          custo: ${formatarReal(p.custo)}<br>
+          lucro: <b>${formatarReal(p.lucro)} (${p.margemPct}%)</b>
+        </div>
+      </div>
+      <div class="linha-acao-card">
+        <div class="seletor-quantidade">
+          <button class="btn-qtd-menos" data-id="${p.id}">−</button>
+          <span class="qtd-selecionada" id="qtd-${p.id}">1</span>
+          <button class="btn-qtd-mais" data-id="${p.id}">+</button>
+        </div>
+        <button class="btn-add-carrinho" data-id="${p.id}">➕ Adicionar</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  document.querySelectorAll('.btn-qtd-menos').forEach(btn => {
+    btn.addEventListener('click', () => alterarQuantidadeSelecionada(parseInt(btn.dataset.id), -1));
+  });
+  document.querySelectorAll('.btn-qtd-mais').forEach(btn => {
+    btn.addEventListener('click', () => alterarQuantidadeSelecionada(parseInt(btn.dataset.id), 1));
+  });
+  document.querySelectorAll('.btn-add-carrinho').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = parseInt(btn.dataset.id);
+      const qtd = quantidadesSelecionadas[id] || 1;
+      adicionarAoCarrinho(id, qtd);
+      mostrarToast(id, qtd);
+      btn.textContent = "✔ Adicionado!";
+      btn.classList.add('adicionado');
+      setTimeout(() => {
+        btn.textContent = "➕ Adicionar";
+        btn.classList.remove('adicionado');
+      }, 900);
+      quantidadesSelecionadas[id] = 1;
+      const span = document.getElementById('qtd-' + id);
+      if(span) span.textContent = 1;
+    });
+  });
+}
+
+let faixaPrecoAtiva = "todos";
+let ordenacaoAtiva = "padrao";
+
+function bateFaixaPreco(preco){
+  if(faixaPrecoAtiva === "ate5") return preco <= 5;
+  if(faixaPrecoAtiva === "5a10") return preco > 5 && preco <= 10;
+  if(faixaPrecoAtiva === "acima10") return preco > 10;
+  return true; // "todos"
+}
+
+function aplicarFiltros(){
+  const termo = document.getElementById('campo-busca').value.trim().toLowerCase();
+  let filtrado = produtos.filter(p => {
+    const bateCategoria = categoriaAtiva === "todos" || p.cat === categoriaAtiva;
+    const bateBusca = p.nome.toLowerCase().includes(termo);
+    return bateCategoria && bateBusca && bateFaixaPreco(p.preco);
+  });
+
+  if(ordenacaoAtiva === "menor-preco") filtrado = filtrado.slice().sort((a, b) => a.preco - b.preco);
+  else if(ordenacaoAtiva === "maior-preco") filtrado = filtrado.slice().sort((a, b) => b.preco - a.preco);
+  else if(ordenacaoAtiva === "melhor-avaliacao") filtrado = filtrado.slice().sort((a, b) => b.nota - a.nota);
+  else if(ordenacaoAtiva === "az") filtrado = filtrado.slice().sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+
+  renderizarCardapio(filtrado);
+}
+aplicarFiltros();
+
+document.getElementById('select-ordenar').addEventListener('change', (e) => {
+  ordenacaoAtiva = e.target.value;
+  aplicarFiltros();
+});
+
+document.querySelectorAll('.chip-preco').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip-preco').forEach(c => c.classList.remove('ativo'));
+    chip.classList.add('ativo');
+    faixaPrecoAtiva = chip.dataset.faixa;
+    aplicarFiltros();
+  });
+});
+
+/* Busca — ao digitar, muda automaticamente para a aba do cardápio */
+document.getElementById('campo-busca').addEventListener('input', () => {
+  aplicarFiltros();
+  if(document.getElementById('campo-busca').value.trim().length > 0){
+    trocarAba('cardapio');
+  }
+});
+
+/* =========================================================
+   SISTEMA DE ABAS (Início / Cardápio / Frete)
+   ========================================================= */
+function trocarAba(nomeAba){
+  document.querySelectorAll('.conteudo-aba').forEach(secao => secao.classList.remove('ativa'));
+  document.getElementById('aba-' + nomeAba).classList.add('ativa');
+
+  document.querySelectorAll('.aba-item').forEach(botao => {
+    botao.classList.toggle('ativa', botao.dataset.aba === nomeAba);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('[data-aba]').forEach(elemento => {
+  elemento.addEventListener('click', () => trocarAba(elemento.dataset.aba));
+});
+
+/* =========================================================
+   CARRINHO
+   ========================================================= */
+let carrinho = {}; // {id: quantidade}
+let quantidadesSelecionadas = {}; // {id: quantidade escolhida antes de adicionar}
+
+function alterarQuantidadeSelecionada(id, delta){
+  const atual = quantidadesSelecionadas[id] || 1;
+  const nova = Math.min(20, Math.max(1, atual + delta));
+  quantidadesSelecionadas[id] = nova;
+  const span = document.getElementById('qtd-' + id);
+  if(span) span.textContent = nova;
+}
+
+function mostrarToastGenerico(emoji, titulo, subtitulo){
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast-carrinho';
+  toast.innerHTML = `
+    <span class="toast-emoji">${emoji}</span>
+    <div class="toast-texto">
+      <b>${titulo}</b>
+      <span>${subtitulo}</span>
+    </div>
+    <span class="toast-check">✔</span>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => toast.classList.add('saindo'), 2400);
+  setTimeout(() => toast.remove(), 2750);
+}
+
+function mostrarToast(id, qtd){
+  const p = produtos.find(x => x.id === id);
+  mostrarToastGenerico(p.emoji, `${qtd}x ${p.nome} adicionado${qtd > 1 ? 's' : ''}!`, "🐭 já está te esperando no carrinho");
+}
+
+/* Formulário de suporte (demonstração — não envia dados de verdade) */
+document.getElementById('form-suporte').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nome = document.getElementById('suporte-nome').value.trim() || "ratinho visitante";
+  mostrarToastGenerico("🐭", `Valeu, ${nome}!`, "Sua dúvida foi enviada (demonstração) — em breve te respondemos!");
+  e.target.reset();
+});
+
+function adicionarAoCarrinho(id, quantidade = 1){
+  carrinho[id] = (carrinho[id] || 0) + quantidade;
+  atualizarCarrinho();
+  const contador = document.getElementById('contador-carrinho');
+  contador.classList.remove('pulso');
+  void contador.offsetWidth; // reinicia a animação mesmo em cliques seguidos
+  contador.classList.add('pulso');
+}
+function alterarQuantidade(id, delta){
+  if(!carrinho[id]) return;
+  carrinho[id] += delta;
+  if(carrinho[id] <= 0) delete carrinho[id];
+  atualizarCarrinho();
+}
+
+function atualizarCarrinho(){
+  const contador = document.getElementById('contador-carrinho');
+  const itensDiv = document.getElementById('itens-carrinho');
+  const vazioDiv = document.getElementById('carrinho-vazio');
+  const resumoDiv = document.getElementById('resumo-carrinho');
+  const ids = Object.keys(carrinho);
+
+  const totalItens = ids.reduce((acc, id) => acc + carrinho[id], 0);
+  contador.textContent = totalItens;
+
+  if(ids.length === 0){
+    itensDiv.innerHTML = "";
+    vazioDiv.style.display = "block";
+    resumoDiv.style.display = "none";
+    return;
+  }
+
+  vazioDiv.style.display = "none";
+  resumoDiv.style.display = "block";
+
+  itensDiv.innerHTML = "";
+  let subtotal = 0;
+  ids.forEach(id => {
+    const p = produtos.find(x => x.id == id);
+    const qtd = carrinho[id];
+    subtotal += p.preco * qtd;
+    const item = document.createElement('div');
+    item.className = 'item-carrinho';
+    item.innerHTML = `
+      <div class="emoji-produto">${p.emoji}</div>
+      <div class="item-info">
+        <div class="nome">${p.nome}</div>
+        <div class="preco-unit">${formatarReal(p.preco)} / unid.</div>
+      </div>
+      <div class="qtd-controle">
+        <button data-id="${p.id}" data-delta="-1">−</button>
+        <span>${qtd}</span>
+        <button data-id="${p.id}" data-delta="1">+</button>
+      </div>
+    `;
+    itensDiv.appendChild(item);
+  });
+
+  document.querySelectorAll('.qtd-controle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      alterarQuantidade(parseInt(btn.dataset.id), parseInt(btn.dataset.delta));
+    });
+  });
+
+  document.getElementById('resumo-subtotal').textContent = formatarReal(subtotal);
+  atualizarResumoTotal(subtotal);
+}
+
+const FRETE_GRATIS_A_PARTIR_DE = 60.00;
+
+/* =========================================================
+   CUPONS DE DESCONTO
+   ========================================================= */
+const cuponsValidos = {
+  "RATINHOS10": { tipo:"percentual", valor:0.10, descricao:"10% de desconto" },
+  "BEMVINDO5":  { tipo:"fixo", valor:5.00, descricao:"R$ 5,00 de desconto" },
+  "FRETEGRATIS":{ tipo:"frete_gratis", valor:0, descricao:"frete grátis garantido" }
+};
+let cupomAtivo = null;
+
+document.getElementById('btn-aplicar-cupom').addEventListener('click', aplicarCupom);
+document.getElementById('input-cupom').addEventListener('keydown', (e) => {
+  if(e.key === "Enter") aplicarCupom();
+});
+
+function aplicarCupom(){
+  const campo = document.getElementById('input-cupom');
+  const codigo = campo.value.trim().toUpperCase();
+  const mensagem = document.getElementById('mensagem-cupom');
+  const cupom = cuponsValidos[codigo];
+
+  if(!codigo){
+    mensagem.className = "erro";
+    mensagem.textContent = "🐭 Digite um código de cupom antes de aplicar.";
+    return;
+  }
+  if(!cupom){
+    mensagem.className = "erro";
+    mensagem.textContent = "🐭 Ops! Esse cupom não existe ou já expirou.";
+    return;
+  }
+
+  cupomAtivo = { codigo, ...cupom };
+  mensagem.className = "sucesso";
+  mensagem.textContent = `✔ Cupom ${codigo} aplicado — ${cupom.descricao}!`;
+
+  const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+    const p = produtos.find(x => x.id == id);
+    return acc + p.preco * carrinho[id];
+  }, 0);
+  atualizarResumoTotal(subtotalAtual);
+}
+
+function atualizarResumoTotal(subtotal){
+  let desconto = 0;
+  if(cupomAtivo){
+    if(cupomAtivo.tipo === "percentual") desconto = subtotal * cupomAtivo.valor;
+    if(cupomAtivo.tipo === "fixo") desconto = Math.min(cupomAtivo.valor, subtotal);
+  }
+  const subtotalComDesconto = subtotal - desconto;
+
+  const ganhouFreteGratis = subtotal >= FRETE_GRATIS_A_PARTIR_DE || (cupomAtivo && cupomAtivo.tipo === "frete_gratis");
+  const valorFreteCobrado = freteAtual ? (ganhouFreteGratis ? 0 : freteAtual.valor) : 0;
+  const total = subtotalComDesconto + valorFreteCobrado;
+
+  document.getElementById('resumo-subtotal').textContent = formatarReal(subtotal);
+  document.getElementById('resumo-total').textContent = formatarReal(total);
+
+  const linhaDesconto = document.getElementById('linha-desconto');
+  if(desconto > 0){
+    linhaDesconto.style.display = "flex";
+    document.getElementById('texto-desconto').textContent = `Desconto (${cupomAtivo.codigo})`;
+    document.getElementById('valor-desconto').textContent = "- " + formatarReal(desconto);
+  } else {
+    linhaDesconto.style.display = "none";
+  }
+
+  if(!freteAtual){
+    document.getElementById('resumo-frete').textContent = "calcule na aba de frete";
+  } else if(ganhouFreteGratis){
+    document.getElementById('resumo-frete').innerHTML = `<s style="opacity:0.5;">${formatarReal(freteAtual.valor)}</s> Grátis 🎉`;
+  } else {
+    document.getElementById('resumo-frete').textContent = formatarReal(freteAtual.valor);
+  }
+
+  const barra = document.getElementById('barra-frete-gratis');
+  if(ganhouFreteGratis){
+    barra.className = "barra-frete-gratis conquistado";
+    barra.innerHTML = `
+      <div class="texto-frete-gratis conquistado">🎉 Você ganhou frete grátis!</div>
+      <div class="trilho"><div class="preenchimento" style="width:100%"></div></div>
+    `;
+  } else {
+    const faltam = FRETE_GRATIS_A_PARTIR_DE - subtotal;
+    const progresso = Math.min(100, (subtotal / FRETE_GRATIS_A_PARTIR_DE) * 100);
+    barra.className = "barra-frete-gratis";
+    barra.innerHTML = `
+      <div class="texto-frete-gratis">🚚 Faltam ${formatarReal(faltam)} para o frete grátis!</div>
+      <div class="trilho"><div class="preenchimento" style="width:${progresso}%"></div></div>
+    `;
+  }
+}
+
+/* Abrir / fechar painel do carrinho */
+const overlay = document.getElementById('overlay-carrinho');
+document.getElementById('btn-abrir-carrinho').addEventListener('click', () => overlay.classList.add('aberto'));
+document.getElementById('btn-fechar-carrinho').addEventListener('click', () => overlay.classList.remove('aberto'));
+overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('aberto'); });
+
+/* Abrir / fechar painel de perfil */
+const overlayPerfil = document.getElementById('overlay-perfil');
+document.getElementById('btn-abrir-perfil').addEventListener('click', () => overlayPerfil.classList.add('aberto'));
+document.getElementById('btn-fechar-perfil').addEventListener('click', () => overlayPerfil.classList.remove('aberto'));
+overlayPerfil.addEventListener('click', (e) => { if(e.target === overlayPerfil) overlayPerfil.classList.remove('aberto'); });
+
+document.getElementById('perfil-nome').addEventListener('input', (e) => {
+  const nome = e.target.value.trim();
+  document.getElementById('nome-exibido-perfil').textContent = nome || "Visitante Ratinho";
+});
+
+/* Usar endereço salvo do perfil: preenche o formulário de frete e calcula automaticamente */
+document.querySelectorAll('.btn-usar-endereco').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cartao = btn.closest('.endereco-salvo');
+    document.getElementById('input-rua').value = cartao.dataset.rua;
+    document.getElementById('input-quadra').value = cartao.dataset.quadra;
+    document.getElementById('input-numero').value = cartao.dataset.numero;
+    document.getElementById('input-complemento').value = cartao.dataset.complemento;
+    document.getElementById('input-bairro').value = cartao.dataset.bairro;
+    calcularFrete();
+    overlayPerfil.classList.remove('aberto');
+    trocarAba('frete');
+  });
+});
+
+document.getElementById('btn-finalizar').addEventListener('click', () => {
+  alert("🐭 Este é um projeto escolar de demonstração!\n\nA 'Lanchonete dos Ratinhos' é uma loja fictícia e não realiza vendas ou pagamentos reais. Obrigado por visitar nosso trabalho! 🧀");
+});
+
+/* =========================================================
+   CÁLCULO DE FRETE (a partir do Centro de Araguaína-TO)
+   ========================================================= */
+const TAXA_BASE = 5.00;      // taxa fixa de saída da loja
+const VALOR_POR_KM = 1.80;   // valor cobrado por km rodado
+
+// distâncias aproximadas (em km) de bairros conhecidos de Araguaína-TO até o Centro
+const distanciasBairros = {
+  "centro": 0.6,
+  "setor aeroporto": 3.4,
+  "cimba": 4.1,
+  "filadelfia": 5.3,
+  "filadélfia": 5.3,
+  "jardim goias": 3.0,
+  "jardim goiás": 3.0,
+  "alto da boa vista": 2.7,
+  "novo horizonte": 6.0,
+  "nova ipe": 4.6,
+  "nova ipê": 4.6,
+  "urbano": 2.1,
+  "raizal": 6.8,
+  "jardim araguaia": 4.9,
+  "setor rodoviario": 2.4,
+  "setor rodoviário": 2.4,
+  "buritizinho": 6.3,
+  "vila azul": 3.7,
+  "anhanguera": 5.1,
+  "setor oeste": 2.9,
+  "pedro afonso": 7.8,
+  "morada do sol": 5.8,
+  "jardim das oliveiras": 4.3,
+  "vila real": 4.0
+};
+
+// gera uma distância consistente (2 a 14km) para bairros não cadastrados,
+// usando o próprio nome digitado como "semente" do cálculo
+function distanciaEstimada(nomeBairro){
+  let soma = 0;
+  for(let i = 0; i < nomeBairro.length; i++){
+    soma += nomeBairro.charCodeAt(i);
+  }
+  return +(2 + (soma % 130) / 10).toFixed(1); // entre 2.0 e 14.9 km
+}
+
+function normalizar(texto){
+  return texto.trim().toLowerCase();
+}
+
+let freteAtual = null;
+let timeoutFrete = null;
+
+function calcularFrete(){
+  const rua = document.getElementById('input-rua').value.trim();
+  const numero = document.getElementById('input-numero').value.trim();
+  const bairro = document.getElementById('input-bairro').value.trim();
+  const resultadoDiv = document.getElementById('resultado-frete');
+
+  if(!rua || !numero || !bairro){
+    freteAtual = null;
+    resultadoDiv.style.display = "block";
+    resultadoDiv.className = "aguardando";
+    resultadoDiv.innerHTML = `🐭 Preencha <b>rua</b>, <b>número</b> e <b>bairro</b> — o frete aparece aqui automaticamente, sem precisar clicar em nada!`;
+    const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+      const p = produtos.find(x => x.id == id);
+      return acc + p.preco * carrinho[id];
+    }, 0);
+    if(Object.keys(carrinho).length) atualizarResumoTotal(subtotalAtual);
+    return;
+  }
+
+  const chaveBairro = normalizar(bairro);
+  let distancia = distanciasBairros[chaveBairro];
+  let bairroConhecido = true;
+  if(distancia === undefined){
+    distancia = distanciaEstimada(chaveBairro);
+    bairroConhecido = false;
+  }
+
+  const valorFrete = +(TAXA_BASE + distancia * VALOR_POR_KM).toFixed(2);
+  freteAtual = { valor: valorFrete, distancia, bairro };
+
+  const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+    const p = produtos.find(x => x.id == id);
+    return acc + p.preco * carrinho[id];
+  }, 0);
+  const ganhouFreteGratis = subtotalAtual >= FRETE_GRATIS_A_PARTIR_DE;
+
+  resultadoDiv.style.display = "block";
+  resultadoDiv.className = "";
+  resultadoDiv.innerHTML = `
+    <div class="linha-frete"><span>📍 Distância até ${bairro}</span><span>${distancia.toFixed(1)} km ${bairroConhecido ? "" : "(estimativa)"}</span></div>
+    <div class="linha-frete"><span>Taxa base de entrega</span><span>${formatarReal(TAXA_BASE)}</span></div>
+    <div class="linha-frete"><span>Valor por km (${formatarReal(VALOR_POR_KM)}/km)</span><span>${formatarReal(distancia * VALOR_POR_KM)}</span></div>
+    <div class="linha-frete total"><span>🚚 Total do frete</span><span>${ganhouFreteGratis ? `<s style="opacity:0.5;">${formatarReal(valorFrete)}</s> Grátis 🎉` : formatarReal(valorFrete)}</span></div>
+    ${ganhouFreteGratis
+      ? `<div class="aviso-frete-gratis conquistado">🎉 Seu carrinho passou de ${formatarReal(FRETE_GRATIS_A_PARTIR_DE)} — frete grátis aplicado!</div>`
+      : `<div class="aviso-frete-gratis">🚚 Compras a partir de ${formatarReal(FRETE_GRATIS_A_PARTIR_DE)} têm frete grátis!</div>`}
+  `;
+
+  if(Object.keys(carrinho).length){
+    atualizarResumoTotal(subtotalAtual);
+  }
+}
+
+// calcula automaticamente enquanto o usuário digita (com pequeno atraso, sem precisar clicar em botão)
+["input-rua", "input-numero", "input-bairro", "input-quadra", "input-complemento"].forEach(idCampo => {
+  document.getElementById(idCampo).addEventListener('input', () => {
+    clearTimeout(timeoutFrete);
+    timeoutFrete = setTimeout(calcularFrete, 500);
+  });
+});
+
+// mostra a mensagem inicial de "aguardando" assim que a página carrega
+calcularFrete();
+</script>
+</body>
+</html>
