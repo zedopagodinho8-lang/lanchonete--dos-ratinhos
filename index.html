@@ -17,6 +17,12 @@
     --rosa-nariz: #F27A9E;
     --verde-ok: #4C9A5A;
     --sombra: 0 8px 20px rgba(90,58,34,0.15);
+    --sombra-suave: 0 4px 12px rgba(90,58,34,0.10);
+
+    --cor-paes: #C4712B;
+    --cor-doces: #D9628E;
+    --cor-bebidas: #3C8FA8;
+    --cor-despensa: #6E9B4E;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -240,7 +246,46 @@
     margin-bottom:6px;
   }
   .titulo-secao h2{ font-size:1.6rem; color:var(--laranja-escuro); margin:0; }
-  .subtitulo-secao{ color:#8a6a4f; font-size:0.92rem; margin:0 0 20px; }
+  .subtitulo-secao{ color:#8a6a4f; font-size:0.92rem; margin:0 0 18px; }
+
+  /* ---------- BARRA DE CATEGORIAS ---------- */
+  .barra-categorias{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    margin-bottom:20px;
+    scrollbar-width:thin;
+  }
+  .barra-categorias::-webkit-scrollbar{ height:5px; }
+  .barra-categorias::-webkit-scrollbar-thumb{ background:var(--laranja-claro); border-radius:10px; }
+  .btn-categoria{
+    flex-shrink:0;
+    background:#fff;
+    border:2px solid #FFE1B8;
+    color:var(--marrom);
+    padding:9px 16px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:0.82rem;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:0.2s;
+  }
+  .btn-categoria:hover{ border-color:var(--laranja-claro); transform:translateY(-1px); }
+  .btn-categoria.ativo{
+    background:var(--laranja);
+    border-color:var(--laranja);
+    color:#fff;
+    box-shadow:var(--sombra-suave);
+  }
+  .btn-categoria .bolinha{
+    width:9px;height:9px;
+    border-radius:50%;
+    display:inline-block;
+    background:currentColor;
+  }
 
   /* ---------- GRID CARDAPIO ---------- */
   #cardapio-grid{
@@ -252,13 +297,35 @@
     background:#fff;
     border-radius:18px;
     padding:16px;
-    box-shadow:var(--sombra);
+    box-shadow:var(--sombra-suave);
     border:2px solid #FFE6C7;
     display:flex;
     flex-direction:column;
     transition:0.2s;
+    position:relative;
+    overflow:hidden;
   }
-  .card-produto:hover{ transform:translateY(-3px); border-color:var(--laranja-claro); }
+  .card-produto::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:5px;
+    background:var(--cor-categoria, var(--laranja));
+  }
+  .card-produto:hover{ transform:translateY(-3px); box-shadow:var(--sombra); border-color:var(--laranja-claro); }
+  .etiqueta-categoria{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:0.62rem;
+    font-weight:800;
+    color:var(--cor-categoria, var(--laranja));
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    margin-bottom:6px;
+  }
+  .etiqueta-categoria .bolinha{ width:7px;height:7px;border-radius:50%;background:var(--cor-categoria, var(--laranja)); }
   .card-topo{
     display:flex;
     align-items:center;
@@ -266,20 +333,20 @@
     margin-bottom:8px;
   }
   .emoji-produto{
-    font-size:2.1rem;
+    font-size:2rem;
     background:var(--creme);
     border-radius:14px;
-    width:52px;height:52px;
+    width:50px;height:50px;
     display:flex;align-items:center;justify-content:center;
     flex-shrink:0;
     border:2px solid var(--queijo);
   }
-  .nome-produto{ font-weight:800; font-size:1rem; line-height:1.15; }
+  .nome-produto{ font-weight:800; font-size:0.98rem; line-height:1.15; }
   .opiniao-rato{
     background:#FFF3E0;
     border-radius:12px;
     padding:9px 11px;
-    font-size:0.78rem;
+    font-size:0.76rem;
     color:#7a5636;
     display:flex;
     gap:7px;
@@ -296,11 +363,11 @@
     border-top:1px dashed #F0D2AE;
     padding-top:8px;
     margin-bottom:10px;
-    font-size:0.72rem;
+    font-size:0.7rem;
     color:#a0805f;
   }
   .precos-produto .preco-final{
-    font-size:1.15rem;
+    font-size:1.1rem;
     font-weight:800;
     color:var(--laranja-escuro);
     display:block;
@@ -313,7 +380,7 @@
     padding:9px;
     border-radius:10px;
     font-weight:800;
-    font-size:0.82rem;
+    font-size:0.8rem;
     text-align:center;
     transition:0.2s;
   }
@@ -481,8 +548,8 @@
   @media (max-width:420px){
     .hero-texto h1{ font-size:1.8rem; }
     .card-produto{ padding:12px; }
-    .emoji-produto{ width:44px;height:44px; font-size:1.7rem; }
-    .nome-produto{ font-size:0.88rem; }
+    .emoji-produto{ width:44px;height:44px; font-size:1.6rem; }
+    .nome-produto{ font-size:0.86rem; }
   }
 </style>
 </head>
@@ -534,7 +601,8 @@
 
 <section id="cardapio">
   <div class="titulo-secao"><h2>📖 Nosso Cardápio</h2></div>
-  <p class="subtitulo-secao">Preços de padaria de verdade, com nossa margem de lucro exibida abaixo de cada item (fins didáticos).</p>
+  <p class="subtitulo-secao">Preços e margens de lucro parecidos com os de uma padaria de verdade, organizados por categoria (fins didáticos).</p>
+  <div class="barra-categorias" id="barra-categorias"></div>
   <div id="cardapio-grid"></div>
   <p id="sem-resultado">🐭 Nenhum produto encontrado... nem o faro apurado do ratinho achou isso no cardápio!</p>
 </section>
@@ -601,55 +669,67 @@
 
 <script>
 /* =========================================================
-   DADOS DOS PRODUTOS
-   custo = 30% do preço | lucro = 70% do preço (margem fixa)
+   CATEGORIAS
+   cada categoria tem uma cor e uma margem de lucro típica
+   de padaria (produtos de panificação vendem com margem
+   menor, doces e bebidas preparadas com margem maior)
    ========================================================= */
+const categorias = {
+  paes:     { nome:"Pães & Salgados",     emoji:"🥖", cor:"var(--cor-paes)" },
+  doces:    { nome:"Doces & Sobremesas",  emoji:"🍰", cor:"var(--cor-doces)" },
+  bebidas:  { nome:"Bebidas",             emoji:"☕", cor:"var(--cor-bebidas)" },
+  despensa: { nome:"Despensa",            emoji:"🍯", cor:"var(--cor-despensa)" }
+};
+
 const nomesRatinhos = ["Bigodinho","Queijolina","Ratão Gourmet","Migalha","Sr. Roeu-Tudo","Ratinha Fon-Fon","Farelo","Dona Casca-Dourada"];
 
+/* preco = preço de venda | margem = % de lucro sobre o preço (padrão de padaria) */
 const produtosBrutos = [
-  { nome:"Pão francês", emoji:"🥖", preco:0.80, opiniao:"Crocante por fora, fofinho por dentro — um clássico que nunca falha!" },
-  { nome:"Croissant", emoji:"🥐", preco:6.50, opiniao:"As camadinhas amanteigadas me fazem correr até a última migalha!" },
-  { nome:"Pão de queijo", emoji:"🧀", preco:3.50, opiniao:"Se roedor tivesse prato favorito de verdade, seria este aqui!" },
-  { nome:"Bolo (fatia)", emoji:"🍰", preco:7.00, opiniao:"Fofinho, doce na medida certa, meu rabo balança de tanta felicidade!" },
-  { nome:"Torradas", emoji:"🍞", preco:8.90, opiniao:"Crocantes e perfeitas pra roer devagarinho." },
-  { nome:"Biscoitos", emoji:"🍪", preco:6.50, opiniao:"Não consigo comer só um... aliás, nem dez!" },
-  { nome:"Frutas (porção)", emoji:"🍎", preco:5.00, opiniao:"Fresquinhas e docinhas, aprovadíssimas pela equipe de ratinhos." },
-  { nome:"Geleia", emoji:"🍓", preco:12.00, opiniao:"Um vidrinho de felicidade concentrada, ótima com pão francês!" },
-  { nome:"Mel", emoji:"🍯", preco:18.00, opiniao:"Puro, dourado e viciante — melhor amigo das torradas." },
-  { nome:"Cereal", emoji:"🥣", preco:14.90, opiniao:"Crocante logo cedo, energia total pra correr o dia inteiro." },
-  { nome:"Refrigerante", emoji:"🥤", preco:5.00, opiniao:"Gelado e borbulhante, combina com qualquer lanche." },
-  { nome:"Suco de laranja", emoji:"🍊", preco:7.00, opiniao:"Vitamina C que deixa até rato preguiçoso animado!" },
-  { nome:"Suco de uva", emoji:"🍇", preco:7.00, opiniao:"Docinho e roxo, o favorito da toca inteira." },
-  { nome:"Café", emoji:"☕", preco:4.50, opiniao:"Aroma que acorda até o rato mais dorminhoco." },
-  { nome:"Milk-shake", emoji:"🥤", preco:12.00, opiniao:"Cremoso, gelado e vale a pena sujar o bigode." },
-  { nome:"Pão na chapa", emoji:"🍞", preco:6.00, opiniao:"Manteiga derretendo... não existe café da manhã melhor." },
-  { nome:"Tapioca", emoji:"🫓", preco:9.00, opiniao:"Recheio generoso e massinha macia, aprovação unânime!" },
-  { nome:"Sanduíche natural", emoji:"🥪", preco:10.00, opiniao:"Leve e fresquinho, ótimo pra rato que também cuida da linha." },
-  { nome:"Pão de batata", emoji:"🥔", preco:5.50, opiniao:"Macio por dentro, casquinha dourada por fora — irresistível!" },
-  { nome:"Muffin", emoji:"🧁", preco:7.50, opiniao:"Fofinho e doce na medida, some rapidinho do balcão." },
-  { nome:"Brigadeiro", emoji:"🍫", preco:3.00, opiniao:"Redondinho, chocolatudo e feito pra ser devorado em uma mordida." },
-  { nome:"Salada de frutas", emoji:"🍉", preco:9.00, opiniao:"Colorida, fresca e leve — aprovadíssima pelas ratinhas fitness." },
-  { nome:"Cappuccino", emoji:"☕", preco:8.50, opiniao:"Espuminha cremosa que até rato pequeno aprova." },
-  { nome:"Água mineral", emoji:"💧", preco:4.00, opiniao:"Simples, gelada e sempre bem-vinda depois do lanche." },
-  { nome:"Empada de frango", emoji:"🥧", preco:8.00, opiniao:"Massinha crocante escondendo um recheio surpreendente!" },
-  { nome:"Coxinha", emoji:"🍗", preco:7.00, opiniao:"Formato de gota, sabor de paixão — clássico dos clássicos!" },
-  { nome:"Pastel de queijo", emoji:"🥟", preco:8.00, opiniao:"Crocante, quentinho, com aquele fio de queijo derretendo." },
-  { nome:"Quiche", emoji:"🥧", preco:11.00, opiniao:"Sofisticada até pra ratinho chique de bigode aparado." },
-  { nome:"Brownie", emoji:"🍫", preco:8.50, opiniao:"Denso, achocolatado, com a casquinha rachada perfeita." },
-  { nome:"Pudim (fatia)", emoji:"🍮", preco:8.00, opiniao:"Calda de caramelo escorrendo... impossível resistir!" },
-  { nome:"Cheesecake (fatia)", emoji:"🍰", preco:12.00, opiniao:"Cremoso, com aquele toque azedinho da fruta por cima." },
-  { nome:"Café com leite", emoji:"☕", preco:5.50, opiniao:"Suave, quentinho e perfeito pra molhar o pão francês." },
-  { nome:"Mocha", emoji:"☕", preco:10.00, opiniao:"Café e chocolate numa xícara só, combinação perfeita!" },
-  { nome:"Limonada", emoji:"🍋", preco:6.50, opiniao:"Refrescante e azedinha na medida, ótima nos dias quentes." }
+  { nome:"Pão francês",       emoji:"🥖", cat:"paes",     preco:0.70,  margem:0.35, opiniao:"Crocante por fora, fofinho por dentro — um clássico que nunca falha!" },
+  { nome:"Croissant",         emoji:"🥐", cat:"paes",     preco:5.50,  margem:0.35, opiniao:"As camadinhas amanteigadas me fazem correr até a última migalha!" },
+  { nome:"Pão de queijo",     emoji:"🧀", cat:"paes",     preco:3.00,  margem:0.35, opiniao:"Se roedor tivesse prato favorito de verdade, seria este aqui!" },
+  { nome:"Bolo (fatia)",      emoji:"🍰", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Fofinho, doce na medida certa, meu rabo balança de tanta felicidade!" },
+  { nome:"Torradas",          emoji:"🍞", cat:"paes",     preco:7.50,  margem:0.35, opiniao:"Crocantes e perfeitas pra roer devagarinho." },
+  { nome:"Biscoitos",         emoji:"🍪", cat:"doces",    preco:5.50,  margem:0.50, opiniao:"Não consigo comer só um... aliás, nem dez!" },
+  { nome:"Frutas (porção)",   emoji:"🍎", cat:"despensa", preco:4.50,  margem:0.30, opiniao:"Fresquinhas e docinhas, aprovadíssimas pela equipe de ratinhos." },
+  { nome:"Geleia",            emoji:"🍓", cat:"despensa", preco:9.00,  margem:0.30, opiniao:"Um vidrinho de felicidade concentrada, ótima com pão francês!" },
+  { nome:"Mel",                emoji:"🍯", cat:"despensa", preco:14.00, margem:0.30, opiniao:"Puro, dourado e viciante — melhor amigo das torradas." },
+  { nome:"Cereal",             emoji:"🥣", cat:"despensa", preco:11.90, margem:0.30, opiniao:"Crocante logo cedo, energia total pra correr o dia inteiro." },
+  { nome:"Refrigerante",       emoji:"🥤", cat:"bebidas",  preco:4.00,  margem:0.25, opiniao:"Gelado e borbulhante, combina com qualquer lanche." },
+  { nome:"Suco de laranja",    emoji:"🍊", cat:"bebidas",  preco:5.50,  margem:0.50, opiniao:"Vitamina C que deixa até rato preguiçoso animado!" },
+  { nome:"Suco de uva",        emoji:"🍇", cat:"bebidas",  preco:5.50,  margem:0.50, opiniao:"Docinho e roxo, o favorito da toca inteira." },
+  { nome:"Café",                emoji:"☕", cat:"bebidas",  preco:3.00,  margem:0.55, opiniao:"Aroma que acorda até o rato mais dorminhoco." },
+  { nome:"Milk-shake",          emoji:"🥤", cat:"bebidas",  preco:9.00,  margem:0.50, opiniao:"Cremoso, gelado e vale a pena sujar o bigode." },
+  { nome:"Pão na chapa",        emoji:"🍞", cat:"paes",     preco:4.50,  margem:0.35, opiniao:"Manteiga derretendo... não existe café da manhã melhor." },
+  { nome:"Tapioca",             emoji:"🫓", cat:"paes",     preco:7.00,  margem:0.40, opiniao:"Recheio generoso e massinha macia, aprovação unânime!" },
+  { nome:"Sanduíche natural",   emoji:"🥪", cat:"paes",     preco:8.00,  margem:0.40, opiniao:"Leve e fresquinho, ótimo pra rato que também cuida da linha." },
+  { nome:"Pão de batata",       emoji:"🥔", cat:"paes",     preco:4.00,  margem:0.35, opiniao:"Macio por dentro, casquinha dourada por fora — irresistível!" },
+  { nome:"Muffin",              emoji:"🧁", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Fofinho e doce na medida, some rapidinho do balcão." },
+  { nome:"Brigadeiro",          emoji:"🍫", cat:"doces",    preco:2.50,  margem:0.60, opiniao:"Redondinho, chocolatudo e feito pra ser devorado em uma mordida." },
+  { nome:"Salada de frutas",    emoji:"🍉", cat:"doces",    preco:7.00,  margem:0.40, opiniao:"Colorida, fresca e leve — aprovadíssima pelas ratinhas fitness." },
+  { nome:"Cappuccino",          emoji:"☕", cat:"bebidas",  preco:6.50,  margem:0.50, opiniao:"Espuminha cremosa que até rato pequeno aprova." },
+  { nome:"Água mineral",        emoji:"💧", cat:"bebidas",  preco:3.00,  margem:0.25, opiniao:"Simples, gelada e sempre bem-vinda depois do lanche." },
+  { nome:"Empada de frango",    emoji:"🥧", cat:"paes",     preco:6.00,  margem:0.40, opiniao:"Massinha crocante escondendo um recheio surpreendente!" },
+  { nome:"Coxinha",             emoji:"🍗", cat:"paes",     preco:5.50,  margem:0.40, opiniao:"Formato de gota, sabor de paixão — clássico dos clássicos!" },
+  { nome:"Pastel de queijo",    emoji:"🥟", cat:"paes",     preco:6.00,  margem:0.40, opiniao:"Crocante, quentinho, com aquele fio de queijo derretendo." },
+  { nome:"Quiche",              emoji:"🥧", cat:"paes",     preco:8.50,  margem:0.40, opiniao:"Sofisticada até pra ratinho chique de bigode aparado." },
+  { nome:"Brownie",             emoji:"🍫", cat:"doces",    preco:6.50,  margem:0.55, opiniao:"Denso, achocolatado, com a casquinha rachada perfeita." },
+  { nome:"Pudim (fatia)",       emoji:"🍮", cat:"doces",    preco:6.00,  margem:0.55, opiniao:"Calda de caramelo escorrendo... impossível resistir!" },
+  { nome:"Cheesecake (fatia)",  emoji:"🍰", cat:"doces",    preco:9.00,  margem:0.55, opiniao:"Cremoso, com aquele toque azedinho da fruta por cima." },
+  { nome:"Café com leite",      emoji:"☕", cat:"bebidas",  preco:4.00,  margem:0.50, opiniao:"Suave, quentinho e perfeito pra molhar o pão francês." },
+  { nome:"Mocha",               emoji:"☕", cat:"bebidas",  preco:7.50,  margem:0.50, opiniao:"Café e chocolate numa xícara só, combinação perfeita!" },
+  { nome:"Limonada",            emoji:"🍋", cat:"bebidas",  preco:5.00,  margem:0.50, opiniao:"Refrescante e azedinha na medida, ótima nos dias quentes." }
 ];
 
 const produtos = produtosBrutos.map((p, i) => ({
   id: i + 1,
   nome: p.nome,
   emoji: p.emoji,
+  cat: p.cat,
   preco: p.preco,
-  custo: +(p.preco * 0.30).toFixed(2),
-  lucro: +(p.preco * 0.70).toFixed(2),
+  custo: +(p.preco * (1 - p.margem)).toFixed(2),
+  lucro: +(p.preco * p.margem).toFixed(2),
+  margemPct: Math.round(p.margem * 100),
   opiniao: p.opiniao,
   rato: nomesRatinhos[i % nomesRatinhos.length]
 }));
@@ -657,6 +737,33 @@ const produtos = produtosBrutos.map((p, i) => ({
 function formatarReal(valor){
   return valor.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
 }
+
+/* =========================================================
+   BARRA DE CATEGORIAS
+   ========================================================= */
+let categoriaAtiva = "todos";
+const barraCategorias = document.getElementById('barra-categorias');
+
+function renderizarBarraCategorias(){
+  const lista = [{ chave:"todos", nome:"Todos", emoji:"🐭", cor:"var(--laranja)" }]
+    .concat(Object.entries(categorias).map(([chave, c]) => ({ chave, nome:c.nome, emoji:c.emoji, cor:c.cor })));
+
+  barraCategorias.innerHTML = lista.map(c => `
+    <button class="btn-categoria ${categoriaAtiva === c.chave ? 'ativo' : ''}" data-cat="${c.chave}" style="${categoriaAtiva===c.chave ? '' : `color:${c.cor}`}">
+      <span class="bolinha" style="background:${categoriaAtiva===c.chave ? '#fff' : c.cor}"></span>
+      ${c.emoji} ${c.nome}
+    </button>
+  `).join("");
+
+  document.querySelectorAll('.btn-categoria').forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoriaAtiva = btn.dataset.cat;
+      renderizarBarraCategorias();
+      aplicarFiltros();
+    });
+  });
+}
+renderizarBarraCategorias();
 
 /* =========================================================
    RENDERIZAÇÃO DO CARDÁPIO
@@ -668,9 +775,12 @@ function renderizarCardapio(lista){
   grid.innerHTML = "";
   semResultado.style.display = lista.length ? "none" : "block";
   lista.forEach(p => {
+    const c = categorias[p.cat];
     const card = document.createElement('div');
     card.className = 'card-produto';
+    card.style.setProperty('--cor-categoria', c.cor);
     card.innerHTML = `
+      <span class="etiqueta-categoria"><span class="bolinha"></span>${c.nome}</span>
       <div class="card-topo">
         <div class="emoji-produto">${p.emoji}</div>
         <div class="nome-produto">${p.nome}</div>
@@ -686,7 +796,7 @@ function renderizarCardapio(lista){
         </div>
         <div class="col-custo">
           custo: ${formatarReal(p.custo)}<br>
-          lucro: <b>${formatarReal(p.lucro)} (70%)</b>
+          lucro: <b>${formatarReal(p.lucro)} (${p.margemPct}%)</b>
         </div>
       </div>
       <button class="btn-add-carrinho" data-id="${p.id}">➕ Adicionar ao carrinho</button>
@@ -705,14 +815,20 @@ function renderizarCardapio(lista){
     });
   });
 }
-renderizarCardapio(produtos);
+
+function aplicarFiltros(){
+  const termo = document.getElementById('campo-busca').value.trim().toLowerCase();
+  const filtrado = produtos.filter(p => {
+    const bateCategoria = categoriaAtiva === "todos" || p.cat === categoriaAtiva;
+    const bateBusca = p.nome.toLowerCase().includes(termo);
+    return bateCategoria && bateBusca;
+  });
+  renderizarCardapio(filtrado);
+}
+aplicarFiltros();
 
 /* Busca */
-document.getElementById('campo-busca').addEventListener('input', (e) => {
-  const termo = e.target.value.trim().toLowerCase();
-  const filtrado = produtos.filter(p => p.nome.toLowerCase().includes(termo));
-  renderizarCardapio(filtrado);
-});
+document.getElementById('campo-busca').addEventListener('input', aplicarFiltros);
 
 /* =========================================================
    CARRINHO
