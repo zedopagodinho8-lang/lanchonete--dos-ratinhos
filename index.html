@@ -6,10 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#E8722A">
   <title>Lanchonete dos Ratinhos 🐭🧀</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
       --laranja: #E8722A;
@@ -996,4 +996,186 @@
     }
 
     .frete-grid {
-      display: grid
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    /* Pequenas responsividades */
+    @media (max-width: 600px) {
+      .hero-texto h1 { font-size: 1.5rem; }
+      .balao-mascote { max-width: 240px; padding: 18px; }
+      #cardapio-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="topo-fixo">
+    <div class="faixa-promo"><span>Promoção: 2 por 1 em mini-queijos hoje!</span></div>
+    <header>
+      <div class="header-linha">
+        <div class="logo">
+          <div class="queijo-icone">🧀</div>
+          Lanchonete dos Ratinhos
+          <small>Fresquinho e crocante</small>
+        </div>
+        <nav class="acoes">
+          <button class="btn-nav">Entrar</button>
+          <button class="btn-nav btn-carrinho">
+            🛒
+            <span class="contador-carrinho">3</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <div class="barra-busca" role="search" aria-label="Buscar produtos">
+      <input placeholder="Procure por sanduíches, doces, bebidas..." />
+      <span>🔎</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-texto">
+        <span class="aviso-escolar">LANCHE ESCOLAR</span>
+        <h1 id="hero-title">Os melhores queijos da cidade</h1>
+        <p>Peça agora e ganhe um adesivo do Ratinho. Entregamos quentinho e com muito amor.</p>
+
+        <div class="hero-botoes">
+          <button class="btn-principal">Ver cardápio</button>
+          <button class="btn-secundario">Como funciona</button>
+        </div>
+      </div>
+
+      <div class="hero-mascote">
+        <div class="balao-mascote" aria-hidden="false">
+          <span class="rato-grande">🐭</span>
+          <strong>Oi! Eu cuido dos queijos</strong>
+          <p>Escolha seu favorito e eu trago pra você.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faixa-confianca" aria-label="Confiabilidade">
+      <div class="item-confianca">
+        <div class="icone-confianca">⭐</div>
+        <b>4.9</b>
+        <span>Avaliações</span>
+      </div>
+      <div class="item-confianca">
+        <div class="icone-confianca">🚚</div>
+        <b>Entrega Rápida</b>
+        <span>Menos de 30 min</span>
+      </div>
+      <div class="item-confianca">
+        <div class="icone-confianca">🛡️</div>
+        <b>Pagamento Seguro</b>
+        <span>Cartão e Pix</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="cardapio-title">
+      <div class="titulo-secao">
+        <h2 id="cardapio-title">Cardápio</h2>
+      </div>
+      <div class="barra-categorias" role="tablist">
+        <button class="btn-categoria ativo">Todos</button>
+        <button class="btn-categoria">Pães</button>
+        <button class="btn-categoria">Doces</button>
+        <button class="btn-categoria">Bebidas</button>
+      </div>
+
+      <div id="cardapio-grid" aria-live="polite">
+        <article class="card-produto" style="--cor-categoria: var(--cor-paes);">
+          <div class="selo-destaque">Mais pedido</div>
+          <div class="card-topo">
+            <div class="emoji-produto">🥐</div>
+            <div>
+              <div class="nome-produto">Croissant de Queijo</div>
+              <div class="avaliacao-produto"><span class="queijinhos">🧀🧀🧀</span> <small>4.8</small></div>
+            </div>
+          </div>
+          <div class="opiniao-rato"><span class="rato-icone">🐭</span><div><span class="autor-rato">Rato João</span>Croissant quentinho, sensação!</div></div>
+          <div class="precos-produto">
+            <div class="preco-final">R$ 7,90</div>
+            <div class="col-custo"><small>custo</small><br><b>R$ 3,20</b></div>
+          </div>
+          <div class="linha-acao-card">
+            <div class="seletor-quantidade">
+              <button>-</button><div class="qtd-selecionada">1</div><button>+</button>
+            </div>
+            <button class="btn-add-carrinho">Adicionar</button>
+          </div>
+        </article>
+
+        <article class="card-produto" style="--cor-categoria: var(--cor-doces);">
+          <div class="card-topo">
+            <div class="emoji-produto">🍰</div>
+            <div>
+              <div class="nome-produto">Bolo de Queijo</div>
+              <div class="avaliacao-produto"><span class="queijinhos">🧀🧀</span> <small>4.6</small></div>
+            </div>
+          </div>
+          <div class="precos-produto">
+            <div class="preco-final">R$ 12,00</div>
+            <div class="col-custo"><small>custo</small><br><b>R$ 5,00</b></div>
+          </div>
+          <div class="linha-acao-card">
+            <button class="btn-add-carrinho">Adicionar</button>
+          </div>
+        </article>
+
+        <div id="sem-resultado">Nenhum item encontrado.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="frete-title">
+      <div class="titulo-secao">
+        <h2 id="frete-title">Entrega</h2>
+      </div>
+
+      <div class="opcoes-entrega">
+        <button class="btn-entrega ativo"><span>🏍️</span><small>Delivery</small></button>
+        <button class="btn-entrega"><span>📍</span><small>Retirar</small></button>
+      </div>
+
+      <div class="frete-caixa ativo">
+        <div class="frete-grid">
+          <div class="item-confianca">
+            <b>R$ 5,00</b>
+            <span>Prazo: 20-30 min</span>
+          </div>
+          <div class="item-confianca">
+            <b>R$ 0,00</b>
+            <span>Retirada - Imediata</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align:center;padding:20px;color:#a0805f;">
+    © Lanchonete dos Ratinhos
+  </footer>
+
+  <script>
+    // Pequena interação para evitar erros caso elementos sejam usados
+    document.querySelectorAll('.btn-categoria').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-categoria').forEach(b => b.classList.remove('ativo'));
+        btn.classList.add('ativo');
+      });
+    });
+
+    document.querySelectorAll('.btn-entrega').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-entrega').forEach(b => b.classList.remove('ativo'));
+        btn.classList.add('ativo');
+        document.querySelectorAll('.frete-caixa').forEach(f => f.classList.remove('ativo'));
+        // mostra a caixa de frete por simplicidade
+        document.querySelector('.frete-caixa').classList.add('ativo');
+      });
+    });
+  </script>
+</body>
+</html>
