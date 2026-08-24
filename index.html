@@ -23,6 +23,7 @@
     --cor-doces: #D9628E;
     --cor-bebidas: #3C8FA8;
     --cor-despensa: #6E9B4E;
+    --dourado: #E8B23C;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -33,20 +34,36 @@
     color:var(--marrom);
     background-image:
       radial-gradient(circle at 95% 8%, rgba(232,114,42,0.08) 0, transparent 40%),
-      radial-gradient(circle at 5% 60%, rgba(255,209,102,0.15) 0, transparent 35%);
+      radial-gradient(circle at 5% 60%, rgba(255,209,102,0.15) 0, transparent 35%),
+      radial-gradient(circle, rgba(196,88,26,0.05) 1.5px, transparent 1.5px);
+    background-size:auto, auto, 26px 26px;
   }
   h1,h2,h3, .titulo-fonte{ font-family:'Baloo 2', sans-serif; }
   a{ text-decoration:none; color:inherit; }
   button{ font-family:'Nunito', sans-serif; cursor:pointer; border:none; }
 
+  /* ---------- FAIXA PROMOCIONAL ---------- */
+  .faixa-promo{
+    background:var(--marrom);
+    color:#f3e3d1;
+    text-align:center;
+    font-size:0.74rem;
+    font-weight:700;
+    padding:7px 12px;
+    letter-spacing:0.2px;
+  }
+  .faixa-promo span{ opacity:0.55; margin:0 8px; }
+
   /* ---------- HEADER ---------- */
+  .topo-fixo{
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
   header{
     background: linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
     color:#fff;
     padding:14px 18px;
-    position:sticky;
-    top:0;
-    z-index:50;
     box-shadow: var(--sombra);
   }
   .header-linha{
@@ -170,24 +187,31 @@
   }
   .hero-texto h1{
     font-size:2.3rem;
-    line-height:1.1;
+    line-height:1.15;
     margin:0 0 12px;
-    color:var(--laranja-escuro);
+    background:linear-gradient(120deg, var(--laranja-escuro) 0%, var(--laranja) 55%, var(--dourado) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
   }
   .hero-texto p{ font-size:1.02rem; line-height:1.5; max-width:480px; }
+  .hero-stats{ display:flex; gap:18px; margin-top:18px; flex-wrap:wrap; }
+  .hero-stats .stat{ display:flex; flex-direction:column; }
+  .hero-stats .stat b{ font-size:1.15rem; color:var(--laranja-escuro); font-family:'Baloo 2', sans-serif; }
+  .hero-stats .stat span{ font-size:0.7rem; color:#8a6a4f; }
   .hero-botoes{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
   .btn-principal{
-    background:var(--laranja);
+    background:linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
     color:#fff;
     padding:13px 22px;
     border-radius:12px;
     font-weight:800;
     font-size:0.95rem;
-    box-shadow:var(--sombra);
-    transition:0.2s;
+    box-shadow:0 8px 18px rgba(232,114,42,0.35);
+    transition:0.25s;
     display:inline-flex; align-items:center; gap:8px;
   }
-  .btn-principal:hover{ background:var(--laranja-escuro); transform:translateY(-2px); }
+  .btn-principal:hover{ transform:translateY(-2px) scale(1.02); box-shadow:0 10px 22px rgba(232,114,42,0.45); }
   .btn-secundario{
     background:#fff;
     color:var(--laranja-escuro);
@@ -211,10 +235,15 @@
     border-radius:26px;
     padding:26px 22px;
     text-align:center;
-    box-shadow:var(--sombra);
+    box-shadow:0 16px 32px rgba(90,58,34,0.18);
     border:3px solid var(--queijo);
     max-width:300px;
     position:relative;
+    animation:flutuar 3.5s ease-in-out infinite;
+  }
+  @keyframes flutuar{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
   }
   .balao-mascote .rato-grande{ font-size:4.2rem; display:block; margin-bottom:6px; }
   .balao-mascote p{
@@ -237,6 +266,81 @@
     opacity:0.15;
   }
 
+  /* ---------- FAIXA DE CONFIANÇA (estilo loja online) ---------- */
+  .faixa-confianca{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 20px 10px;
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:10px;
+  }
+  .item-confianca{
+    background:#fff;
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:var(--sombra-suave);
+    border:1px solid #FFE6C7;
+  }
+  .item-confianca .icone-confianca{
+    font-size:1.3rem;
+    width:38px;height:38px;
+    border-radius:50%;
+    background:var(--creme);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .item-confianca .texto-confianca{ line-height:1.25; }
+  .item-confianca .texto-confianca b{ display:block; font-size:0.8rem; color:var(--marrom); }
+  .item-confianca .texto-confianca span{ font-size:0.7rem; color:#a0805f; }
+
+  /* ---------- ABAS PRINCIPAIS ---------- */
+  .abas-principais{
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    padding:10px 14px;
+    box-shadow:0 4px 14px rgba(90,58,34,0.08);
+    flex-wrap:wrap;
+    border-bottom:1px solid #FFE6C7;
+  }
+  .aba-item{
+    background:transparent;
+    color:#a0805f;
+    font-weight:800;
+    font-size:0.85rem;
+    padding:10px 18px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    transition:0.25s;
+    border:2px solid transparent;
+  }
+  .aba-item .aba-emoji{ font-size:1rem; }
+  .aba-item:hover{ color:var(--laranja-escuro); background:#FFF3E0; }
+  .aba-item.ativa{
+    background:linear-gradient(135deg, var(--laranja) 0%, var(--laranja-escuro) 100%);
+    color:#fff;
+    box-shadow:0 6px 14px rgba(232,114,42,0.35);
+    transform:translateY(-1px);
+  }
+  .conteudo-aba{
+    display:none;
+  }
+  .conteudo-aba.ativa{
+    display:block;
+    animation:surgirAba 0.35s ease both;
+  }
+  @keyframes surgirAba{
+    from{ opacity:0; transform:translateY(12px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
   /* ---------- SECOES GERAIS ---------- */
   section{ max-width:1100px; margin:0 auto; padding:26px 20px; }
   .titulo-secao{
@@ -253,8 +357,8 @@
     display:flex;
     gap:8px;
     overflow-x:auto;
-    padding-bottom:10px;
-    margin-bottom:20px;
+    padding:10px 0 14px;
+    margin-bottom:12px;
     scrollbar-width:thin;
   }
   .barra-categorias::-webkit-scrollbar{ height:5px; }
@@ -304,6 +408,11 @@
     transition:0.2s;
     position:relative;
     overflow:hidden;
+    animation:surgirCard 0.35s ease both;
+  }
+  @keyframes surgirCard{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
   }
   .card-produto::before{
     content:"";
@@ -313,7 +422,32 @@
     height:5px;
     background:var(--cor-categoria, var(--laranja));
   }
-  .card-produto:hover{ transform:translateY(-3px); box-shadow:var(--sombra); border-color:var(--laranja-claro); }
+  .card-produto:hover{
+    transform:translateY(-5px) scale(1.015);
+    box-shadow:0 16px 28px -8px color-mix(in srgb, var(--cor-categoria, var(--laranja)) 45%, transparent);
+    border-color:var(--cor-categoria, var(--laranja-claro));
+  }
+  .selo-destaque{
+    position:absolute;
+    top:10px; right:10px;
+    background:var(--dourado);
+    color:#5A3A22;
+    font-size:0.62rem;
+    font-weight:800;
+    padding:4px 9px;
+    border-radius:999px;
+    box-shadow:0 3px 8px rgba(232,178,60,0.5);
+    z-index:2;
+  }
+  .avaliacao-produto{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:0.7rem;
+    color:#a0805f;
+    margin-bottom:8px;
+  }
+  .avaliacao-produto .queijinhos{ letter-spacing:1px; font-size:0.75rem; }
   .etiqueta-categoria{
     display:inline-flex;
     align-items:center;
@@ -334,7 +468,7 @@
   }
   .emoji-produto{
     font-size:2rem;
-    background:var(--creme);
+    background:linear-gradient(145deg, #FFF6E9, #FFEAC8);
     border-radius:14px;
     width:50px;height:50px;
     display:flex;align-items:center;justify-content:center;
@@ -377,15 +511,49 @@
   .btn-add-carrinho{
     background:var(--laranja);
     color:#fff;
-    padding:9px;
+    padding:9px 10px;
     border-radius:10px;
     font-weight:800;
-    font-size:0.8rem;
+    font-size:0.78rem;
     text-align:center;
     transition:0.2s;
+    flex:1;
   }
   .btn-add-carrinho:hover{ background:var(--laranja-escuro); }
   .btn-add-carrinho.adicionado{ background:var(--verde-ok); }
+
+  .linha-acao-card{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .seletor-quantidade{
+    display:flex;
+    align-items:center;
+    gap:0;
+    background:var(--creme);
+    border-radius:10px;
+    border:2px solid #FFE1B8;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .seletor-quantidade button{
+    width:30px;
+    height:36px;
+    background:transparent;
+    color:var(--laranja-escuro);
+    font-weight:800;
+    font-size:1.05rem;
+    transition:0.15s;
+  }
+  .seletor-quantidade button:hover{ background:var(--queijo); }
+  .seletor-quantidade .qtd-selecionada{
+    min-width:22px;
+    text-align:center;
+    font-weight:800;
+    font-size:0.88rem;
+    color:var(--marrom);
+  }
 
   #sem-resultado{
     display:none;
@@ -404,9 +572,10 @@
   }
   .frete-caixa{
     background:#fff;
-    border-radius:18px;
-    padding:22px;
-    box-shadow:var(--sombra);
+    border-radius:22px;
+    padding:26px;
+    box-shadow:0 14px 30px rgba(90,58,34,0.12);
+    border:2px solid #FFE6C7;
   }
   .frete-grid{
     display:grid;
@@ -425,17 +594,35 @@
     outline:none;
   }
   .campo-frete input:focus{ border-color:var(--laranja); }
-  #btn-calcular-frete{
+  .indicador-auto{
     margin-top:14px;
-    width:100%;
+    font-size:0.76rem;
+    color:var(--laranja-escuro);
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#FFF1DD;
+    padding:9px 12px;
+    border-radius:10px;
+    width:fit-content;
+  }
+  #resultado-frete.aguardando{
+    display:block;
+    background:#FFF9F0;
+    border:2px dashed #FFDDB0;
+    color:#a0805f;
+    font-size:0.82rem;
+    text-align:center;
   }
   #resultado-frete{
     margin-top:16px;
-    background:#F3FBEF;
+    background:linear-gradient(160deg, #F3FBEF, #E9F7E2);
     border:2px solid #CBEAC0;
-    border-radius:14px;
-    padding:14px 16px;
+    border-radius:16px;
+    padding:16px 18px;
     display:none;
+    box-shadow:0 8px 18px rgba(76,154,90,0.15);
   }
   #resultado-frete.erro{ background:#FDEAEA; border-color:#F4BFBF; }
   #resultado-frete .linha-frete{
@@ -445,6 +632,20 @@
     padding:3px 0;
   }
   #resultado-frete .linha-frete.total{ font-weight:800; font-size:1rem; border-top:1px dashed #b9d9ae; margin-top:6px; padding-top:8px; }
+  .aviso-frete-gratis{
+    margin-top:10px;
+    background:#FFF1DD;
+    color:var(--laranja-escuro);
+    font-size:0.76rem;
+    font-weight:700;
+    padding:8px 10px;
+    border-radius:10px;
+    text-align:center;
+  }
+  .aviso-frete-gratis.conquistado{
+    background:#E3F5DD;
+    color:var(--verde-ok);
+  }
   .origem-loja{ font-size:0.75rem; color:#8a6a4f; margin-top:10px; display:flex; gap:6px; align-items:center; }
 
   /* ---------- CARRINHO (modal) ---------- */
@@ -502,6 +703,33 @@
     padding:14px;
     font-size:0.88rem;
   }
+  .barra-frete-gratis{
+    margin-bottom:14px;
+  }
+  .barra-frete-gratis .texto-frete-gratis{
+    font-size:0.78rem;
+    font-weight:700;
+    color:var(--laranja-escuro);
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+  .barra-frete-gratis .texto-frete-gratis.conquistado{ color:var(--verde-ok); }
+  .barra-frete-gratis .trilho{
+    height:9px;
+    background:var(--creme);
+    border-radius:999px;
+    overflow:hidden;
+    border:1px solid #FFE1B8;
+  }
+  .barra-frete-gratis .preenchimento{
+    height:100%;
+    background:linear-gradient(90deg, var(--laranja), var(--dourado));
+    border-radius:999px;
+    transition:width 0.4s ease;
+  }
+  .barra-frete-gratis.conquistado .preenchimento{ background:linear-gradient(90deg, var(--verde-ok), #7DC98A); }
   .resumo-carrinho .linha{ display:flex; justify-content:space-between; padding:4px 0; }
   .resumo-carrinho .linha.total{ font-weight:800; font-size:1.05rem; border-top:1px dashed #F0D2AE; margin-top:6px; padding-top:8px; color:var(--laranja-escuro); }
   #btn-finalizar{
@@ -521,20 +749,113 @@
     line-height:1.4;
   }
 
+  /* ---------- TOAST DE NOTIFICAÇÃO ---------- */
+  .toast-container{
+    position:fixed;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:200;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    width:min(360px, 92vw);
+    pointer-events:none;
+  }
+  .toast-carrinho{
+    background:#fff;
+    border-radius:14px;
+    padding:12px 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 14px 28px rgba(90,58,34,0.25);
+    border:2px solid var(--verde-ok);
+    animation:entrarToast 0.35s ease;
+  }
+  .toast-carrinho.saindo{
+    animation:sairToast 0.35s ease forwards;
+  }
+  @keyframes entrarToast{
+    from{ opacity:0; transform:translateY(16px) scale(0.95); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+  @keyframes sairToast{
+    from{ opacity:1; transform:translateY(0) scale(1); }
+    to{ opacity:0; transform:translateY(16px) scale(0.95); }
+  }
+  .toast-carrinho .toast-emoji{
+    font-size:1.6rem;
+    background:var(--creme);
+    border-radius:50%;
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .toast-carrinho .toast-texto{ flex:1; line-height:1.3; }
+  .toast-carrinho .toast-texto b{ font-size:0.85rem; color:var(--marrom); display:block; }
+  .toast-carrinho .toast-texto span{ font-size:0.72rem; color:#a0805f; }
+  .toast-carrinho .toast-check{
+    color:var(--verde-ok);
+    font-size:1.2rem;
+    font-weight:800;
+    flex-shrink:0;
+  }
+  @media (max-width:420px){
+    .toast-container{ bottom:12px; }
+  }
+
   /* ---------- FOOTER ---------- */
   footer{
     background:var(--marrom);
     color:#f3e3d1;
-    text-align:center;
-    padding:26px 16px 30px;
-    margin-top:30px;
-    font-size:0.8rem;
+    padding:34px 20px 20px;
+    margin-top:34px;
+    font-size:0.82rem;
     line-height:1.6;
   }
-  footer .rodape-titulo{ font-family:'Baloo 2',sans-serif; font-size:1.1rem; margin-bottom:6px; color:var(--queijo); }
+  .rodape-grid{
+    max-width:1100px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding-bottom:22px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  @media (min-width:700px){
+    .rodape-grid{ grid-template-columns:1.3fr 1fr 1fr 1fr; }
+  }
+  footer .rodape-titulo{ font-family:'Baloo 2',sans-serif; font-size:1.2rem; margin-bottom:8px; color:var(--queijo); display:flex; align-items:center; gap:8px; }
+  footer .coluna-rodape h4{
+    font-family:'Baloo 2', sans-serif;
+    color:var(--queijo);
+    font-size:0.9rem;
+    margin:0 0 10px;
+  }
+  footer .coluna-rodape ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:7px; }
+  footer .coluna-rodape ul li{ opacity:0.85; }
+  footer .redes-sociais{ display:flex; gap:10px; margin-top:12px; }
+  footer .redes-sociais span{
+    width:34px;height:34px;
+    background:rgba(255,255,255,0.1);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.95rem;
+  }
+  footer .rodape-baixo{
+    max-width:1100px;
+    margin:16px auto 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:0.72rem;
+    opacity:0.7;
+  }
   footer .selo-escolar{
     display:inline-block;
-    margin-top:10px;
     background:rgba(255,255,255,0.08);
     border:1px dashed rgba(255,255,255,0.3);
     padding:8px 14px;
@@ -555,6 +876,9 @@
 </head>
 <body>
 
+<div class="faixa-promo">🎉 Frete GRÁTIS em compras acima de R$ 60,00 <span>•</span> 🚚 Frete calculado automaticamente pelo seu endereço <span>•</span> 🐭 Provado e aprovado por ratinhos</div>
+
+<div class="topo-fixo">
 <header>
   <div class="header-linha">
     <div class="logo">
@@ -565,8 +889,8 @@
       </div>
     </div>
     <nav class="acoes">
-      <a href="#cardapio" class="btn-nav">📖 Cardápio</a>
-      <a href="#frete" class="btn-nav">📍 Calcular Frete</a>
+      <button class="btn-nav" data-aba="cardapio">📖 Cardápio</button>
+      <button class="btn-nav" data-aba="frete">📍 Calcular Frete</button>
       <button class="btn-nav btn-carrinho" id="btn-abrir-carrinho">
         🧺 Carrinho
         <span class="contador-carrinho" id="contador-carrinho">0</span>
@@ -579,14 +903,27 @@
   </div>
 </header>
 
+<nav class="abas-principais" id="abas-principais">
+  <button class="aba-item ativa" data-aba="inicio"><span class="aba-emoji">🏠</span>Início</button>
+  <button class="aba-item" data-aba="cardapio"><span class="aba-emoji">📖</span>Cardápio</button>
+  <button class="aba-item" data-aba="frete"><span class="aba-emoji">📍</span>Calcular Frete</button>
+</nav>
+</div>
+
+<div class="conteudo-aba ativa" id="aba-inicio">
 <section class="hero">
   <div class="hero-texto">
     <span class="aviso-escolar">🎓 Projeto escolar — loja fictícia de demonstração</span>
     <h1>Pão quentinho, queijo derretendo e ratinhos experts em cada mordida 🧀</h1>
     <p>Bem-vindo(a) à padaria mais fofa da cidade! Cada produto tem a opinião sincera de um ratinho provador de plantão. Escolha, adicione ao carrinho e calcule o frete até a sua casa.</p>
+    <div class="hero-stats">
+      <div class="stat"><b>34</b><span>produtos no cardápio</span></div>
+      <div class="stat"><b>4.6 🧀</b><span>avaliação média</span></div>
+      <div class="stat"><b>+70%</b><span>lucro médio da loja</span></div>
+    </div>
     <div class="hero-botoes">
-      <a href="#cardapio" class="btn-principal">📖 Ver Cardápio</a>
-      <a href="#frete" class="btn-secundario">📍 Calcular meu Frete</a>
+      <button class="btn-principal" data-aba="cardapio">📖 Ver Cardápio</button>
+      <button class="btn-secundario" data-aba="frete">📍 Calcular meu Frete</button>
     </div>
   </div>
   <div class="hero-mascote">
@@ -599,6 +936,27 @@
   </div>
 </section>
 
+<div class="faixa-confianca">
+  <div class="item-confianca">
+    <span class="icone-confianca">🚚</span>
+    <div class="texto-confianca"><b>Frete grátis</b><span>Em compras acima de R$60</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">🧀</span>
+    <div class="texto-confianca"><b>34 produtos</b><span>Direto do forno pra você</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">🐭</span>
+    <div class="texto-confianca"><b>Avaliado por ratinhos</b><span>Opinião em cada item</span></div>
+  </div>
+  <div class="item-confianca">
+    <span class="icone-confianca">📍</span>
+    <div class="texto-confianca"><b>Saída do Centro</b><span>Araguaína-TO</span></div>
+  </div>
+</div>
+</div>
+
+<div class="conteudo-aba" id="aba-cardapio">
 <section id="cardapio">
   <div class="titulo-secao"><h2>📖 Nosso Cardápio</h2></div>
   <p class="subtitulo-secao">Preços e margens de lucro parecidos com os de uma padaria de verdade, organizados por categoria (fins didáticos).</p>
@@ -606,7 +964,9 @@
   <div id="cardapio-grid"></div>
   <p id="sem-resultado">🐭 Nenhum produto encontrado... nem o faro apurado do ratinho achou isso no cardápio!</p>
 </section>
+</div>
 
+<div class="conteudo-aba" id="aba-frete">
 <section id="frete">
   <div class="frete-caixa">
     <div class="titulo-secao"><h2>📍 Calcular Frete</h2></div>
@@ -633,11 +993,14 @@
         <input type="text" id="input-bairro" placeholder="Ex: Setor Aeroporto">
       </div>
     </div>
-    <button class="btn-principal" id="btn-calcular-frete">🚚 Calcular valor do frete</button>
+    <div class="indicador-auto">🔄 O frete é calculado automaticamente enquanto você preenche o endereço</div>
     <div id="resultado-frete"></div>
     <div class="origem-loja">🏠 Loja de origem: Centro de Araguaína-TO (ponto de referência fixo para o cálculo)</div>
   </div>
 </section>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
 
 <div class="overlay" id="overlay-carrinho">
   <div class="painel-carrinho">
@@ -651,8 +1014,9 @@
       Seu carrinho está vazio.<br>Que tal escolher algo gostoso no cardápio?
     </div>
     <div class="resumo-carrinho" id="resumo-carrinho" style="display:none;">
+      <div class="barra-frete-gratis" id="barra-frete-gratis"></div>
       <div class="linha"><span>Subtotal</span><span id="resumo-subtotal">R$ 0,00</span></div>
-      <div class="linha"><span>Frete</span><span id="resumo-frete">calcule na seção de frete</span></div>
+      <div class="linha"><span>Frete</span><span id="resumo-frete">calcule na aba de frete</span></div>
       <div class="linha total"><span>Total</span><span id="resumo-total">R$ 0,00</span></div>
       <button id="btn-finalizar">Finalizar pedido</button>
       <p class="nota-demo">⚠️ Este site é um projeto escolar de demonstração. Nenhuma compra real é processada.</p>
@@ -661,10 +1025,45 @@
 </div>
 
 <footer>
-  <div class="rodape-titulo">🐭 Lanchonete dos Ratinhos 🧀</div>
-  Centro de Araguaína-TO • Aberto de segunda a sábado, das 6h às 19h<br>
-  Feito com queijo, pão fresco e muito carinho de rato.
-  <div class="selo-escolar">📚 Site desenvolvido como trabalho escolar — apenas para fins de demonstração, sem vendas reais.</div>
+  <div class="rodape-grid">
+    <div class="coluna-rodape">
+      <div class="rodape-titulo">🐭 Lanchonete dos Ratinhos 🧀</div>
+      <p style="opacity:0.85; max-width:320px;">Padaria de bairro com o cuidado de quem prova cada receita antes de servir. Pão fresco, café quentinho e muito carinho.</p>
+      <div class="redes-sociais">
+        <span>📷</span><span>📘</span><span>🐦</span><span>💬</span>
+      </div>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Categorias</h4>
+      <ul>
+        <li>🥖 Pães & Salgados</li>
+        <li>🍰 Doces & Sobremesas</li>
+        <li>☕ Bebidas</li>
+        <li>🍯 Despensa</li>
+      </ul>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Atendimento</h4>
+      <ul>
+        <li>📍 Centro, Araguaína-TO</li>
+        <li>🕒 Seg. a sáb., 6h às 19h</li>
+        <li>📞 (63) 0000-0000</li>
+        <li>✉️ contato@ratinhos.com</li>
+      </ul>
+    </div>
+    <div class="coluna-rodape">
+      <h4>Sobre a loja</h4>
+      <ul>
+        <li>🎓 Projeto escolar</li>
+        <li>🐭 Opiniões dos ratinhos</li>
+        <li>🚚 Cálculo de frete automático</li>
+      </ul>
+    </div>
+  </div>
+  <div class="rodape-baixo">
+    <span>© 2026 Lanchonete dos Ratinhos — todos os direitos reservados (fictício)</span>
+    <span class="selo-escolar">📚 Site de demonstração escolar — sem vendas reais</span>
+  </div>
 </footer>
 
 <script>
@@ -721,18 +1120,41 @@ const produtosBrutos = [
   { nome:"Limonada",            emoji:"🍋", cat:"bebidas",  preco:5.00,  margem:0.50, opiniao:"Refrescante e azedinha na medida, ótima nos dias quentes." }
 ];
 
-const produtos = produtosBrutos.map((p, i) => ({
-  id: i + 1,
-  nome: p.nome,
-  emoji: p.emoji,
-  cat: p.cat,
-  preco: p.preco,
-  custo: +(p.preco * (1 - p.margem)).toFixed(2),
-  lucro: +(p.preco * p.margem).toFixed(2),
-  margemPct: Math.round(p.margem * 100),
-  opiniao: p.opiniao,
-  rato: nomesRatinhos[i % nomesRatinhos.length]
-}));
+// itens em destaque na loja (selo "mais vendido")
+const maisVendidos = ["Pão de queijo", "Coxinha", "Café", "Brigadeiro", "Croissant", "Pastel de queijo"];
+
+// gera avaliação (3.5 a 5.0 queijinhos) e nº de avaliações de forma consistente por produto
+function gerarAvaliacao(nome){
+  let soma = 0;
+  for(let i = 0; i < nome.length; i++) soma += nome.charCodeAt(i);
+  const nota = +(3.5 + (soma % 16) / 10).toFixed(1); // 3.5 a 5.0
+  const qtdAvaliacoes = 20 + (soma % 260); // 20 a 280
+  return { nota, qtdAvaliacoes };
+}
+
+function desenharQueijinhos(nota){
+  const cheios = Math.round(nota);
+  return "🧀".repeat(cheios) + "▫️".repeat(5 - cheios);
+}
+
+const produtos = produtosBrutos.map((p, i) => {
+  const avaliacao = gerarAvaliacao(p.nome);
+  return {
+    id: i + 1,
+    nome: p.nome,
+    emoji: p.emoji,
+    cat: p.cat,
+    preco: p.preco,
+    custo: +(p.preco * (1 - p.margem)).toFixed(2),
+    lucro: +(p.preco * p.margem).toFixed(2),
+    margemPct: Math.round(p.margem * 100),
+    opiniao: p.opiniao,
+    rato: nomesRatinhos[i % nomesRatinhos.length],
+    destaque: maisVendidos.includes(p.nome),
+    nota: avaliacao.nota,
+    qtdAvaliacoes: avaliacao.qtdAvaliacoes
+  };
+});
 
 function formatarReal(valor){
   return valor.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
@@ -780,10 +1202,15 @@ function renderizarCardapio(lista){
     card.className = 'card-produto';
     card.style.setProperty('--cor-categoria', c.cor);
     card.innerHTML = `
+      ${p.destaque ? '<span class="selo-destaque">🔥 Mais vendido</span>' : ''}
       <span class="etiqueta-categoria"><span class="bolinha"></span>${c.nome}</span>
       <div class="card-topo">
         <div class="emoji-produto">${p.emoji}</div>
         <div class="nome-produto">${p.nome}</div>
+      </div>
+      <div class="avaliacao-produto">
+        <span class="queijinhos">${desenharQueijinhos(p.nota)}</span>
+        <span>${p.nota.toFixed(1)} (${p.qtdAvaliacoes})</span>
       </div>
       <div class="opiniao-rato">
         <span class="rato-icone">🐭</span>
@@ -799,19 +1226,38 @@ function renderizarCardapio(lista){
           lucro: <b>${formatarReal(p.lucro)} (${p.margemPct}%)</b>
         </div>
       </div>
-      <button class="btn-add-carrinho" data-id="${p.id}">➕ Adicionar ao carrinho</button>
+      <div class="linha-acao-card">
+        <div class="seletor-quantidade">
+          <button class="btn-qtd-menos" data-id="${p.id}">−</button>
+          <span class="qtd-selecionada" id="qtd-${p.id}">1</span>
+          <button class="btn-qtd-mais" data-id="${p.id}">+</button>
+        </div>
+        <button class="btn-add-carrinho" data-id="${p.id}">➕ Adicionar</button>
+      </div>
     `;
     grid.appendChild(card);
   });
+  document.querySelectorAll('.btn-qtd-menos').forEach(btn => {
+    btn.addEventListener('click', () => alterarQuantidadeSelecionada(parseInt(btn.dataset.id), -1));
+  });
+  document.querySelectorAll('.btn-qtd-mais').forEach(btn => {
+    btn.addEventListener('click', () => alterarQuantidadeSelecionada(parseInt(btn.dataset.id), 1));
+  });
   document.querySelectorAll('.btn-add-carrinho').forEach(btn => {
     btn.addEventListener('click', () => {
-      adicionarAoCarrinho(parseInt(btn.dataset.id));
+      const id = parseInt(btn.dataset.id);
+      const qtd = quantidadesSelecionadas[id] || 1;
+      adicionarAoCarrinho(id, qtd);
+      mostrarToast(id, qtd);
       btn.textContent = "✔ Adicionado!";
       btn.classList.add('adicionado');
       setTimeout(() => {
-        btn.textContent = "➕ Adicionar ao carrinho";
+        btn.textContent = "➕ Adicionar";
         btn.classList.remove('adicionado');
       }, 900);
+      quantidadesSelecionadas[id] = 1;
+      const span = document.getElementById('qtd-' + id);
+      if(span) span.textContent = 1;
     });
   });
 }
@@ -827,16 +1273,66 @@ function aplicarFiltros(){
 }
 aplicarFiltros();
 
-/* Busca */
-document.getElementById('campo-busca').addEventListener('input', aplicarFiltros);
+/* Busca — ao digitar, muda automaticamente para a aba do cardápio */
+document.getElementById('campo-busca').addEventListener('input', () => {
+  aplicarFiltros();
+  if(document.getElementById('campo-busca').value.trim().length > 0){
+    trocarAba('cardapio');
+  }
+});
+
+/* =========================================================
+   SISTEMA DE ABAS (Início / Cardápio / Frete)
+   ========================================================= */
+function trocarAba(nomeAba){
+  document.querySelectorAll('.conteudo-aba').forEach(secao => secao.classList.remove('ativa'));
+  document.getElementById('aba-' + nomeAba).classList.add('ativa');
+
+  document.querySelectorAll('.aba-item').forEach(botao => {
+    botao.classList.toggle('ativa', botao.dataset.aba === nomeAba);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('[data-aba]').forEach(elemento => {
+  elemento.addEventListener('click', () => trocarAba(elemento.dataset.aba));
+});
 
 /* =========================================================
    CARRINHO
    ========================================================= */
 let carrinho = {}; // {id: quantidade}
+let quantidadesSelecionadas = {}; // {id: quantidade escolhida antes de adicionar}
 
-function adicionarAoCarrinho(id){
-  carrinho[id] = (carrinho[id] || 0) + 1;
+function alterarQuantidadeSelecionada(id, delta){
+  const atual = quantidadesSelecionadas[id] || 1;
+  const nova = Math.min(20, Math.max(1, atual + delta));
+  quantidadesSelecionadas[id] = nova;
+  const span = document.getElementById('qtd-' + id);
+  if(span) span.textContent = nova;
+}
+
+function mostrarToast(id, qtd){
+  const p = produtos.find(x => x.id === id);
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast-carrinho';
+  toast.innerHTML = `
+    <span class="toast-emoji">${p.emoji}</span>
+    <div class="toast-texto">
+      <b>${qtd}x ${p.nome} adicionado${qtd > 1 ? 's' : ''}!</b>
+      <span>🐭 já está te esperando no carrinho</span>
+    </div>
+    <span class="toast-check">✔</span>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => toast.classList.add('saindo'), 2400);
+  setTimeout(() => toast.remove(), 2750);
+}
+
+function adicionarAoCarrinho(id, quantidade = 1){
+  carrinho[id] = (carrinho[id] || 0) + quantidade;
   atualizarCarrinho();
 }
 function alterarQuantidade(id, delta){
@@ -899,12 +1395,39 @@ function atualizarCarrinho(){
   atualizarResumoTotal(subtotal);
 }
 
+const FRETE_GRATIS_A_PARTIR_DE = 60.00;
+
 function atualizarResumoTotal(subtotal){
-  const total = subtotal + (freteAtual ? freteAtual.valor : 0);
+  const ganhouFreteGratis = subtotal >= FRETE_GRATIS_A_PARTIR_DE;
+  const valorFreteCobrado = freteAtual ? (ganhouFreteGratis ? 0 : freteAtual.valor) : 0;
+  const total = subtotal + valorFreteCobrado;
+
   document.getElementById('resumo-total').textContent = formatarReal(total);
-  document.getElementById('resumo-frete').textContent = freteAtual
-    ? formatarReal(freteAtual.valor)
-    : "calcule na seção de frete";
+
+  if(!freteAtual){
+    document.getElementById('resumo-frete').textContent = "calcule na aba de frete";
+  } else if(ganhouFreteGratis){
+    document.getElementById('resumo-frete').innerHTML = `<s style="opacity:0.5;">${formatarReal(freteAtual.valor)}</s> Grátis 🎉`;
+  } else {
+    document.getElementById('resumo-frete').textContent = formatarReal(freteAtual.valor);
+  }
+
+  const barra = document.getElementById('barra-frete-gratis');
+  if(ganhouFreteGratis){
+    barra.className = "barra-frete-gratis conquistado";
+    barra.innerHTML = `
+      <div class="texto-frete-gratis conquistado">🎉 Você ganhou frete grátis!</div>
+      <div class="trilho"><div class="preenchimento" style="width:100%"></div></div>
+    `;
+  } else {
+    const faltam = FRETE_GRATIS_A_PARTIR_DE - subtotal;
+    const progresso = Math.min(100, (subtotal / FRETE_GRATIS_A_PARTIR_DE) * 100);
+    barra.className = "barra-frete-gratis";
+    barra.innerHTML = `
+      <div class="texto-frete-gratis">🚚 Faltam ${formatarReal(faltam)} para o frete grátis!</div>
+      <div class="trilho"><div class="preenchimento" style="width:${progresso}%"></div></div>
+    `;
+  }
 }
 
 /* Abrir / fechar painel do carrinho */
@@ -966,18 +1489,24 @@ function normalizar(texto){
 }
 
 let freteAtual = null;
+let timeoutFrete = null;
 
-document.getElementById('btn-calcular-frete').addEventListener('click', () => {
+function calcularFrete(){
   const rua = document.getElementById('input-rua').value.trim();
-  const quadra = document.getElementById('input-quadra').value.trim();
   const numero = document.getElementById('input-numero').value.trim();
   const bairro = document.getElementById('input-bairro').value.trim();
   const resultadoDiv = document.getElementById('resultado-frete');
 
   if(!rua || !numero || !bairro){
+    freteAtual = null;
     resultadoDiv.style.display = "block";
-    resultadoDiv.className = "erro";
-    resultadoDiv.innerHTML = `🐭 Opa! Preencha pelo menos <b>rua</b>, <b>número</b> e <b>bairro</b> para calcularmos o frete até sua casa.`;
+    resultadoDiv.className = "aguardando";
+    resultadoDiv.innerHTML = `🐭 Preencha <b>rua</b>, <b>número</b> e <b>bairro</b> — o frete aparece aqui automaticamente, sem precisar clicar em nada!`;
+    const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+      const p = produtos.find(x => x.id == id);
+      return acc + p.preco * carrinho[id];
+    }, 0);
+    if(Object.keys(carrinho).length) atualizarResumoTotal(subtotalAtual);
     return;
   }
 
@@ -992,23 +1521,39 @@ document.getElementById('btn-calcular-frete').addEventListener('click', () => {
   const valorFrete = +(TAXA_BASE + distancia * VALOR_POR_KM).toFixed(2);
   freteAtual = { valor: valorFrete, distancia, bairro };
 
+  const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
+    const p = produtos.find(x => x.id == id);
+    return acc + p.preco * carrinho[id];
+  }, 0);
+  const ganhouFreteGratis = subtotalAtual >= FRETE_GRATIS_A_PARTIR_DE;
+
   resultadoDiv.style.display = "block";
   resultadoDiv.className = "";
   resultadoDiv.innerHTML = `
     <div class="linha-frete"><span>📍 Distância até ${bairro}</span><span>${distancia.toFixed(1)} km ${bairroConhecido ? "" : "(estimativa)"}</span></div>
     <div class="linha-frete"><span>Taxa base de entrega</span><span>${formatarReal(TAXA_BASE)}</span></div>
     <div class="linha-frete"><span>Valor por km (${formatarReal(VALOR_POR_KM)}/km)</span><span>${formatarReal(distancia * VALOR_POR_KM)}</span></div>
-    <div class="linha-frete total"><span>🚚 Total do frete</span><span>${formatarReal(valorFrete)}</span></div>
+    <div class="linha-frete total"><span>🚚 Total do frete</span><span>${ganhouFreteGratis ? `<s style="opacity:0.5;">${formatarReal(valorFrete)}</s> Grátis 🎉` : formatarReal(valorFrete)}</span></div>
+    ${ganhouFreteGratis
+      ? `<div class="aviso-frete-gratis conquistado">🎉 Seu carrinho passou de ${formatarReal(FRETE_GRATIS_A_PARTIR_DE)} — frete grátis aplicado!</div>`
+      : `<div class="aviso-frete-gratis">🚚 Compras a partir de ${formatarReal(FRETE_GRATIS_A_PARTIR_DE)} têm frete grátis!</div>`}
   `;
 
-  const subtotalAtual = Object.keys(carrinho).reduce((acc, id) => {
-    const p = produtos.find(x => x.id == id);
-    return acc + p.preco * carrinho[id];
-  }, 0);
   if(Object.keys(carrinho).length){
     atualizarResumoTotal(subtotalAtual);
   }
+}
+
+// calcula automaticamente enquanto o usuário digita (com pequeno atraso, sem precisar clicar em botão)
+["input-rua", "input-numero", "input-bairro", "input-quadra", "input-complemento"].forEach(idCampo => {
+  document.getElementById(idCampo).addEventListener('input', () => {
+    clearTimeout(timeoutFrete);
+    timeoutFrete = setTimeout(calcularFrete, 500);
+  });
 });
+
+// mostra a mensagem inicial de "aguardando" assim que a página carrega
+calcularFrete();
 </script>
 </body>
 </html>
